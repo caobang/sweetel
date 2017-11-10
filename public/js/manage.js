@@ -57584,7 +57584,7 @@ exports = module.exports = __webpack_require__(58)(undefined);
 
 
 // module
-exports.push([module.i, "\n.el-tabs__nav{\r\n    margin-top:10px;\r\n    margin-left:10px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57632,25 +57632,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      activeName: 'second'
-    };
-  },
-
-  methods: {
-    handleClick: function handleClick(tab, event) {
-      console.log(tab, event);
-    }
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 /* 196 */
@@ -57660,48 +57643,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "el-tabs",
-    {
-      attrs: { type: "card" },
-      on: { "tab-click": _vm.handleClick },
-      model: {
-        value: _vm.activeName,
-        callback: function($$v) {
-          _vm.activeName = $$v
-        },
-        expression: "activeName"
-      }
-    },
-    [
-      _c("el-tab-pane", [
-        _c("span", { attrs: { slot: "label" }, slot: "label" }, [
-          _c("i", { staticClass: "el-icon-date" }),
-          _vm._v(" 我的行程")
-        ]),
-        _vm._v("我的行程")
-      ]),
-      _vm._v(" "),
-      _c("el-tab-pane", { attrs: { label: "用户管理", name: "first" } }, [
-        _vm._v("用户管理")
-      ]),
-      _vm._v(" "),
-      _c("el-tab-pane", { attrs: { label: "配置管理", name: "second" } }, [
-        _vm._v("配置管理")
-      ]),
-      _vm._v(" "),
-      _c("el-tab-pane", { attrs: { label: "角色管理", name: "third" } }, [
-        _vm._v("角色管理")
-      ]),
-      _vm._v(" "),
-      _c(
-        "el-tab-pane",
-        { attrs: { label: "定时任务补偿", name: "fourth", closable: "true" } },
-        [_vm._v("定时任务补偿")]
-      )
-    ],
-    1
-  )
+  return _c("div", [_vm._v("配置管理")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57726,7 +57668,7 @@ var normalizeComponent = __webpack_require__(8)
 /* script */
 var __vue_script__ = __webpack_require__(200)
 /* template */
-var __vue_template__ = __webpack_require__(201)
+var __vue_template__ = __webpack_require__(202)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57800,7 +57742,7 @@ exports = module.exports = __webpack_require__(58)(undefined);
 
 
 // module
-exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside{\r\n    width:auto !important;\r\n    overflow: inherit;\n}\n.el-menu{\r\n    height:100%;\n}\n.el-menu:not(.el-menu--collapse){\r\n    width:140px;\n}\n.el-main{\r\n    padding:0px;\n}\n.collapse-btn{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{\r\n    color: #fff;\n}\n.el-dropdown-link{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.el-dropdown-status{\r\n    cursor: pointer;\r\n    color: #fff;\r\n    font-size: 12px;\n}\n.el-dropdown-status i.online{\r\n    color: #67C23A;\n}\n.el-dropdown-status i.leave{\r\n    color: #FA5555;\n}\n.el-dropdown-status i.offline{\r\n    color: #878D99;\n}\n.useroperation{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown{\r\n    display:block;\n}\n.userhead{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\n.fade-enter-active,.fade-leave-active {\r\n\t-webkit-transition: all .5s ease;\r\n\ttransition: all .5s ease;\n}\n.fade-enter,.fade-leave-active {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside{\r\n    width:auto !important;\r\n    overflow: inherit;\n}\n.el-menu{\r\n    height:100%;\n}\n.el-menu:not(.el-menu--collapse){\r\n    width:140px;\n}\n.el-main{\r\n    padding:0px;\n}\n.collapse-btn{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{\r\n    color: #fff;\n}\n.el-dropdown-link{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.el-dropdown-status{\r\n    cursor: pointer;\r\n    color: #fff;\r\n    font-size: 12px;\n}\n.el-dropdown-status i.online{\r\n    color: #67C23A;\n}\n.el-dropdown-status i.leave{\r\n    color: #FA5555;\n}\n.el-dropdown-status i.stealth{\r\n    color: #EB9E05;\n}\n.el-dropdown-status i.offline{\r\n    color: #878D99;\n}\n.useroperation{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown{\r\n    display:block;\n}\n.userhead{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\n.fade-enter-active,.fade-leave-active {\r\n\t-webkit-transition: all .5s ease;\r\n\ttransition: all .5s ease;\n}\n.fade-enter,.fade-leave-active {\r\n\topacity: 0;\n}\n.el-tabs .el-tabs__nav{\r\n    margin-top:10px;\r\n    margin-left:10px;\n}\r\n", ""]);
 
 // exports
 
@@ -57811,6 +57753,15 @@ exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__img_userhead_jpg__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__img_userhead_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__img_userhead_jpg__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57867,22 +57818,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            collapsed: false
+            collapsed: false,
+            userheadlink: __WEBPACK_IMPORTED_MODULE_0__img_userhead_jpg___default.a,
+            activeTabName: 0,
+            activaIcon: '',
+            activaMenu: '',
+            userStatus: 0
         };
     },
 
     methods: {
         toggleMenu: function toggleMenu() {
             this.collapsed = !this.collapsed;
+        },
+        selectNode: function selectNode(index) {
+            var nav = this.$router.options.navs.find(function (n) {
+                return n.path === index;
+            });
+            this.activaIcon = nav.icon;
+            this.activaMenu = nav.title;
+        },
+        toggleStatus: function toggleStatus(command) {
+            this.userStatus = command;
         }
+    },
+    mounted: function mounted() {
+        var curIndex = this.$router.currentRoute.path;
+        this.selectNode(curIndex);
+        this.userStatus = 1;
     }
+
 });
 
 /***/ }),
 /* 201 */
+/***/ (function(module, exports) {
+
+module.exports = "/images/userhead.jpg?3d2893eabdcfd82809395a0f02748e0e";
+
+/***/ }),
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57906,36 +57885,50 @@ var render = function() {
                 "background-color": "#2D2F33",
                 "text-color": "#fff",
                 "active-text-color": "#409EFF"
-              }
+              },
+              on: { select: _vm.selectNode }
             },
             [
               _c(
                 "div",
                 { staticClass: "userhead" },
                 [
-                  _c("img", {
-                    attrs: { src: __webpack_require__(202) }
-                  }),
+                  _c("img", { attrs: { src: _vm.userheadlink } }),
                   _vm._v(" "),
                   _c(
                     "el-dropdown",
                     {
-                      staticStyle: { display: "block", "padding-top": "10px" }
+                      staticStyle: { display: "block", "padding-top": "10px" },
+                      on: { command: _vm.toggleStatus }
                     },
                     [
                       _c("span", { staticClass: "el-dropdown-status" }, [
-                        _c("i", { staticClass: "el-icon-fa-circle online" })
+                        _c("i", {
+                          staticClass: "el-icon-fa-circle",
+                          class: {
+                            online: _vm.userStatus == 1,
+                            leave: _vm.userStatus == 2,
+                            stealth: _vm.userStatus == 3,
+                            offline: _vm.userStatus == 0
+                          }
+                        })
                       ]),
                       _vm._v(" "),
                       _c(
                         "el-dropdown-menu",
                         { attrs: { slot: "dropdown" }, slot: "dropdown" },
                         [
-                          _c("el-dropdown-item", [_vm._v("在线")]),
+                          _c("el-dropdown-item", { attrs: { command: "1" } }, [
+                            _vm._v("在线")
+                          ]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("离开")]),
+                          _c("el-dropdown-item", { attrs: { command: "2" } }, [
+                            _vm._v("离开")
+                          ]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("隐身")])
+                          _c("el-dropdown-item", { attrs: { command: "3" } }, [
+                            _vm._v("隐身")
+                          ])
                         ],
                         1
                       )
@@ -58018,9 +58011,41 @@ var render = function() {
             "el-main",
             [
               _c(
-                "transition",
-                { attrs: { name: "fade", mode: "out-in" } },
-                [_c("router-view")],
+                "el-tabs",
+                {
+                  attrs: { type: "card" },
+                  model: {
+                    value: _vm.activeTabName,
+                    callback: function($$v) {
+                      _vm.activeTabName = $$v
+                    },
+                    expression: "activeTabName"
+                  }
+                },
+                [
+                  _c(
+                    "el-tab-pane",
+                    { attrs: { name: "0" } },
+                    [
+                      _c("span", { attrs: { slot: "label" }, slot: "label" }, [
+                        _c("i", { class: _vm.activaIcon }),
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.activaMenu) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        { attrs: { name: "fade", mode: "out-in" } },
+                        [_c("router-view")],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
                 1
               ),
               _vm._v(" "),
@@ -58042,13 +58067,21 @@ var render = function() {
                         "el-dropdown-menu",
                         { attrs: { slot: "dropdown" }, slot: "dropdown" },
                         [
-                          _c("el-dropdown-item", [_vm._v("个人中心")]),
+                          _c("el-dropdown-item", { attrs: { command: "1" } }, [
+                            _vm._v("个人中心")
+                          ]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("重置密码")]),
+                          _c("el-dropdown-item", { attrs: { command: "2" } }, [
+                            _vm._v("重置密码")
+                          ]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("锁定屏幕")]),
+                          _c("el-dropdown-item", { attrs: { command: "3" } }, [
+                            _vm._v("锁定屏幕")
+                          ]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("退出登录")])
+                          _c("el-dropdown-item", { attrs: { command: "4" } }, [
+                            _vm._v("退出登录")
+                          ])
                         ],
                         1
                       )
@@ -58077,12 +58110,6 @@ if (false) {
     require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-3a8cf51c", module.exports)
   }
 }
-
-/***/ }),
-/* 202 */
-/***/ (function(module, exports) {
-
-module.exports = "/images/userhead.jpg?3d2893eabdcfd82809395a0f02748e0e";
 
 /***/ })
 /******/ ]);

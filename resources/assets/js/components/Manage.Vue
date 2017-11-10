@@ -1,18 +1,18 @@
 <template>
     <el-container class="main">
         <el-aside>
-                <el-menu :collapse='collapsed' router default-active="/" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
+                <el-menu @select="selectNode" :collapse='collapsed' router default-active="/" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
                     
                     <div class="userhead">
-                        <img src="../../img/userhead.jpg" />
-                        <el-dropdown style="display:block;padding-top:10px;">
+                        <img :src="userheadlink" />
+                        <el-dropdown @command="toggleStatus" style="display:block;padding-top:10px;">
                             <span class="el-dropdown-status">
-                                <i class="el-icon-fa-circle online"></i>
+                                <i class="el-icon-fa-circle" :class="{online:userStatus==1,leave:userStatus==2,stealth:userStatus==3,offline:userStatus==0}"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>在线</el-dropdown-item>
-                            <el-dropdown-item>离开</el-dropdown-item>
-                            <el-dropdown-item>隐身</el-dropdown-item>
+                            <el-dropdown-item command="1">在线</el-dropdown-item>
+                            <el-dropdown-item command="2">离开</el-dropdown-item>
+                            <el-dropdown-item command="3">隐身</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     </div>
@@ -32,19 +32,27 @@
         </el-aside>
         <el-container>
             <el-main>
-                <transition name="fade" mode="out-in">
-                    <router-view/>
-                </transition>
+                    <el-tabs type="card" v-model="activeTabName">
+                        <el-tab-pane name="0">
+                        <span slot="label">
+                            <i :class="activaIcon"></i>
+                            {{activaMenu}}
+                        </span>
+                        <transition name="fade" mode="out-in">
+                            <router-view/>
+                        </transition>
+                        </el-tab-pane>
+                    </el-tabs>
                 <div class='useroperation'>
                     <el-dropdown>
                         <span class="el-dropdown-link">
                             小甜<i class="el-icon-caret-bottom el-icon--right"></i>
                         </span>
                             <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>个人中心</el-dropdown-item>
-                            <el-dropdown-item>重置密码</el-dropdown-item>
-                            <el-dropdown-item>锁定屏幕</el-dropdown-item>
-                            <el-dropdown-item>退出登录</el-dropdown-item>
+                            <el-dropdown-item command="1">个人中心</el-dropdown-item>
+                            <el-dropdown-item command="2">重置密码</el-dropdown-item>
+                            <el-dropdown-item command="3">锁定屏幕</el-dropdown-item>
+                            <el-dropdown-item command="4">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -52,19 +60,38 @@
         </el-container>
     </el-container>
 </template>
-
 <script>
+import userhead from '../../img/userhead.jpg'
 export default {
     data() {
 		return {
-			collapsed:false
+            collapsed:false,
+            userheadlink:userhead,
+            activeTabName:0,
+            activaIcon:'',
+            activaMenu:'',
+            userStatus:0
 		}
     },
     methods:{
         toggleMenu:function(){
             this.collapsed=!this.collapsed;
+        },
+        selectNode:function(index){
+            let nav = this.$router.options.navs.find(n=>n.path===index);
+            this.activaIcon=nav.icon;
+            this.activaMenu=nav.title;
+        },
+        toggleStatus:function(command){
+            this.userStatus=command;
         }
+    },
+    mounted:function(){
+        var curIndex = this.$router.currentRoute.path;
+        this.selectNode(curIndex);
+        this.userStatus = 1;
     }
+
 }
 </script>
 
@@ -120,6 +147,9 @@ export default {
 .el-dropdown-status i.leave{
     color: #FA5555;
 }
+.el-dropdown-status i.stealth{
+    color: #EB9E05;
+}
 .el-dropdown-status i.offline{
     color: #878D99;
 }
@@ -147,5 +177,9 @@ export default {
 }
 .fade-enter,.fade-leave-active {
 	opacity: 0;
+}
+.el-tabs .el-tabs__nav{
+    margin-top:10px;
+    margin-left:10px;
 }
 </style>

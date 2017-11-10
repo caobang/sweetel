@@ -16,3 +16,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.js('resources/assets/js/manage.js', 'public/js')
    .sass('resources/assets/sass/manage.scss', 'public/css');
+
+//if (mix.inProduction) {
+//    mix.version();
+//}
+
+//mix.copyDirectory('assets/img', 'public/img');
