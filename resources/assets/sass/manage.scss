@@ -1,16 +1,22 @@
+
 // element-ui css
 @import "~element-ui/packages/theme-chalk/src/index";
-//@import "~element-ui/lib/theme-chalk/index.css";
 
 body{
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     margin:0;
 }
 
-.el-menu .el-menu-item.is-active i{
-    color: #409EFF;
+// font-awesome css
+$fa-css-prefix:el-icon-fa;
 
-}
-.el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{
-    color: #fff;
+@import "~font-awesome/scss/font-awesome";
 
-}
+[class^="el-icon-fa"], [class*=" el-icon-fa"] {
+    display: inline-block;
+    font-family: FontAwesome !important;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+};

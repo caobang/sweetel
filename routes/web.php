@@ -17,9 +17,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/manage', function () {
-    $data['title']='';
-    return view('manage');
-});
+Route::get('/home/{module?}', 'HomeController@index')->name('home');

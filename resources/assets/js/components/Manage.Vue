@@ -1,14 +1,28 @@
 <template>
     <el-container class="main">
         <el-aside>
-                <el-menu :collapse='collapsed' :router="true" background-color="#2D2F33" text-color="#fff" >
+                <el-menu :collapse='collapsed' router default-active="/" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
                     
-                    <div class="userhead"><img src="../../img/userhead.jpg" /></div>
-                    <div @click.prevent="toggleMenu" class="collapse-btn"><i class="el-icon-sort" style="transform:rotate(90deg);"></i></div>
+                    <div class="userhead">
+                        <img src="../../img/userhead.jpg" />
+                        <el-dropdown style="display:block;padding-top:10px;">
+                            <span class="el-dropdown-status">
+                                <i class="el-icon-fa-circle online"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>在线</el-dropdown-item>
+                            <el-dropdown-item>离开</el-dropdown-item>
+                            <el-dropdown-item>隐身</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    </div>
+                    <div @click.prevent="toggleMenu" class="collapse-btn">
+                        <i class="el-icon-fa-navicon" ></i>
+                    </div>
                     
                     <template v-for="(item,index) in $router.options.navs">
                         <el-submenu v-if="item.children" :index="item.path" :key="item.path" >
-                            <template slot="title"><i :class="item.icon"></i><span>{{item.title}}</span>
+                            <template slot="title"><i :class="item.icon"></i><span slot="title">{{item.title}}</span>
                             </template>
                             <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.title}}</el-menu-item>
                         </el-submenu>
@@ -24,12 +38,12 @@
                 <div class='useroperation'>
                     <el-dropdown>
                         <span class="el-dropdown-link">
-                            小甜<i class="el-icon-arrow-down el-icon--right"></i>
+                            小甜<i class="el-icon-caret-bottom el-icon--right"></i>
                         </span>
                             <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item>个人中心</el-dropdown-item>
                             <el-dropdown-item>重置密码</el-dropdown-item>
-                            <el-dropdown-item>退出登录</el-dropdown-item>
+                            <el-dropdown-item>锁定屏幕</el-dropdown-item>
                             <el-dropdown-item>退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -65,14 +79,13 @@ export default {
 }
 .el-aside{
     width:auto !important;
+    overflow: inherit;
 }
 .el-menu{
     height:100%;
-    overflow:hidden;
 }
-
 .el-menu:not(.el-menu--collapse){
-    width:220px;
+    width:140px;
 }
 .el-main{
     padding:0px;
@@ -88,15 +101,27 @@ export default {
     background-color:#242629;
     color:#fff;
 }
-.fade-enter-active,.fade-leave-active {
-	transition: all .5s ease;
-}
-.fade-enter,.fade-leave-active {
-	opacity: 0;
+.el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{
+    color: #fff;
+
 }
 .el-dropdown-link{
     cursor: pointer;
     color: #409EFF;
+}
+.el-dropdown-status{
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+}
+.el-dropdown-status i.online{
+    color: #67C23A;
+}
+.el-dropdown-status i.leave{
+    color: #FA5555;
+}
+.el-dropdown-status i.offline{
+    color: #878D99;
 }
 .useroperation{
     position:absolute;
@@ -116,5 +141,11 @@ export default {
     width:40px;
     height:40px;
     border-radius: 50%;
+}
+.fade-enter-active,.fade-leave-active {
+	transition: all .5s ease;
+}
+.fade-enter,.fade-leave-active {
+	opacity: 0;
 }
 </style>

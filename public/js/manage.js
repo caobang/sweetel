@@ -54675,43 +54675,39 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     base: '/home',
     navs: [{
         title: '首页',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-home',
         path: '/'
     }, {
         title: '用户中心',
-        icon: 'el-icon-message',
-        path: '/1',
-        children: [{
-            title: 'example',
-            path: '/example'
-        }]
+        icon: 'el-icon-fa-user',
+        path: '/user'
     }, {
         title: '在线客服',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-comment',
         path: '/chat'
     }, {
         title: '客服机器人',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-android',
         path: '/robot'
     }, {
         title: '客户中心',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-users',
         path: '/customer'
     }, {
         title: '工单系统',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-th',
         path: '/order'
     }, {
         title: '短信中心',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-envelope',
         path: '/message'
     }, {
         title: '呼叫中心',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-phone',
         path: '/call'
     }, {
         title: '统计分析',
-        icon: 'el-icon-message',
+        icon: 'el-icon-fa-pie-chart',
         path: '/analysis'
     }, {
         title: '系统设置',
@@ -54722,7 +54718,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         path: '/',
         component: __WEBPACK_IMPORTED_MODULE_2__components_manage_Dashboard___default.a
     }, {
-        path: '/example',
+        path: '/user',
         component: __WEBPACK_IMPORTED_MODULE_4__components_Example___default.a
     }, {
         path: '/chat',
@@ -57804,7 +57800,7 @@ exports = module.exports = __webpack_require__(58)(undefined);
 
 
 // module
-exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside{\r\n    width:auto !important;\n}\n.el-menu{\r\n    height:100%;\r\n    overflow:hidden;\n}\n.el-menu:not(.el-menu--collapse){\r\n    width:220px;\n}\n.el-main{\r\n    padding:0px;\n}\n.collapse-btn{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.fade-enter-active,.fade-leave-active {\r\n\t-webkit-transition: all .5s ease;\r\n\ttransition: all .5s ease;\n}\n.fade-enter,.fade-leave-active {\r\n\topacity: 0;\n}\n.el-dropdown-link{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.useroperation{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown{\r\n    display:block;\n}\n.userhead{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside{\r\n    width:auto !important;\r\n    overflow: inherit;\n}\n.el-menu{\r\n    height:100%;\n}\n.el-menu:not(.el-menu--collapse){\r\n    width:140px;\n}\n.el-main{\r\n    padding:0px;\n}\n.collapse-btn{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{\r\n    color: #fff;\n}\n.el-dropdown-link{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.el-dropdown-status{\r\n    cursor: pointer;\r\n    color: #fff;\r\n    font-size: 12px;\n}\n.el-dropdown-status i.online{\r\n    color: #67C23A;\n}\n.el-dropdown-status i.leave{\r\n    color: #FA5555;\n}\n.el-dropdown-status i.offline{\r\n    color: #878D99;\n}\n.useroperation{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown{\r\n    display:block;\n}\n.userhead{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\n.fade-enter-active,.fade-leave-active {\r\n\t-webkit-transition: all .5s ease;\r\n\ttransition: all .5s ease;\n}\n.fade-enter,.fade-leave-active {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -57815,6 +57811,20 @@ exports.push([module.i, "\n.main{\r\n    position:absolute;\r\n    bottom:0;\r\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57891,15 +57901,50 @@ var render = function() {
             {
               attrs: {
                 collapse: _vm.collapsed,
-                router: true,
+                router: "",
+                "default-active": "/",
                 "background-color": "#2D2F33",
-                "text-color": "#fff"
+                "text-color": "#fff",
+                "active-text-color": "#409EFF"
               }
             },
             [
-              _c("div", { staticClass: "userhead" }, [
-                _c("img", { attrs: { src: __webpack_require__(202) } })
-              ]),
+              _c(
+                "div",
+                { staticClass: "userhead" },
+                [
+                  _c("img", {
+                    attrs: { src: __webpack_require__(202) }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "el-dropdown",
+                    {
+                      staticStyle: { display: "block", "padding-top": "10px" }
+                    },
+                    [
+                      _c("span", { staticClass: "el-dropdown-status" }, [
+                        _c("i", { staticClass: "el-icon-fa-circle online" })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "el-dropdown-menu",
+                        { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                        [
+                          _c("el-dropdown-item", [_vm._v("在线")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("离开")]),
+                          _vm._v(" "),
+                          _c("el-dropdown-item", [_vm._v("隐身")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -57912,12 +57957,7 @@ var render = function() {
                     }
                   }
                 },
-                [
-                  _c("i", {
-                    staticClass: "el-icon-sort",
-                    staticStyle: { transform: "rotate(90deg)" }
-                  })
-                ]
+                [_c("i", { staticClass: "el-icon-fa-navicon" })]
               ),
               _vm._v(" "),
               _vm._l(_vm.$router.options.navs, function(item, index) {
@@ -57929,7 +57969,11 @@ var render = function() {
                         [
                           _c("template", { slot: "title" }, [
                             _c("i", { class: item.icon }),
-                            _c("span", [_vm._v(_vm._s(item.title))])
+                            _c(
+                              "span",
+                              { attrs: { slot: "title" }, slot: "title" },
+                              [_vm._v(_vm._s(item.title))]
+                            )
                           ]),
                           _vm._v(" "),
                           _vm._l(item.children, function(child) {
@@ -57990,7 +58034,7 @@ var render = function() {
                       _c("span", { staticClass: "el-dropdown-link" }, [
                         _vm._v("\n                        小甜"),
                         _c("i", {
-                          staticClass: "el-icon-arrow-down el-icon--right"
+                          staticClass: "el-icon-caret-bottom el-icon--right"
                         })
                       ]),
                       _vm._v(" "),
@@ -58002,7 +58046,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("el-dropdown-item", [_vm._v("重置密码")]),
                           _vm._v(" "),
-                          _c("el-dropdown-item", [_vm._v("退出登录")]),
+                          _c("el-dropdown-item", [_vm._v("锁定屏幕")]),
                           _vm._v(" "),
                           _c("el-dropdown-item", [_vm._v("退出登录")])
                         ],
