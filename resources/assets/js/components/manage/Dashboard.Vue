@@ -7,6 +7,8 @@
 
                     <div class="panel-body">
                         I'm an example component!
+                        <el-button type="primary" @click="addCustomTab">addTab</el-button>
+                        <input />
                     </div>
                 </div>
             </div>
@@ -15,7 +17,18 @@
 </template>
 
 <script>
+
+  import Vue from 'vue'
+  import Example from '../Example'
+  import bus from '../../bus'
     export default {
+        methods:{
+            addCustomTab:function(){
+                bus.$emit('addTab',{tabIcon:'el-icon-fa-user',tabTitle:'Example11',tabContent:'<Dashboard>1</Dashboard>',tabComponent:Example,tabClosable:true},true)
+            
+
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }

@@ -1,48 +1,47 @@
 <template>
     <el-container class="main">
         <el-aside>
-                <el-menu @select="selectNode" :collapse='collapsed' router default-active="/" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
-                    
-                    <div class="userhead">
-                        <img :src="userheadlink" />
-                        <el-dropdown @command="toggleStatus" style="display:block;padding-top:10px;">
-                            <span class="el-dropdown-status">
-                                <i class="el-icon-fa-circle" :class="{online:userStatus==1,leave:userStatus==2,stealth:userStatus==3,offline:userStatus==0}"></i>
-                            </span>
-                            <el-dropdown-menu slot="dropdown">
+            <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
+                <div class="userhead">
+                    <img :src="userheadlink" />
+                    <el-dropdown @command="toggleStatus" style="display:block;padding-top:10px;">
+                        <span class="el-dropdown-status">
+                            <i class="el-icon-fa-circle" :class="{online:userStatus==1,leave:userStatus==2,stealth:userStatus==3,offline:userStatus==0}"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="1">在线</el-dropdown-item>
                             <el-dropdown-item command="2">离开</el-dropdown-item>
                             <el-dropdown-item command="3">隐身</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    </div>
-                    <div @click.prevent="toggleMenu" class="collapse-btn">
-                        <i class="el-icon-fa-navicon" ></i>
-                    </div>
+                </div>
+
+                <div @click.prevent="toggleMenu" class="collapse-btn">
+                    <i class="el-icon-fa-navicon" ></i>
+                </div>
                     
-                    <template v-for="(item,index) in $router.options.navs">
-                        <el-submenu v-if="item.children" :index="item.path" :key="item.path" >
-                            <template slot="title"><i :class="item.icon"></i><span slot="title">{{item.title}}</span>
-                            </template>
-                            <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.title}}</el-menu-item>
-                        </el-submenu>
-                        <el-menu-item v-if="!item.children" :index="item.path" :key="item.path" ><i :class="item.icon"></i><span slot="title">{{item.title}}</span></el-menu-item>
-                    </template>
-                </el-menu>
+                <template v-for="(item,index) in $router.options.navs">
+                    <el-submenu v-if="item.children" :index="item.path" :key="item.path" >
+                        <template slot="title"><i :class="item.icon"></i><span slot="title">{{item.title}}</span>
+                        </template>
+                        <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.title}}</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item v-if="!item.children" :index="item.path" :key="item.path" ><i :class="item.icon"></i><span slot="title">{{item.title}}</span></el-menu-item>
+                </template>
+            </el-menu>
         </el-aside>
         <el-container>
             <el-main>
-                    <el-tabs type="card" v-model="activeTabName">
-                        <el-tab-pane name="0">
+                <el-tabs type="card" v-model="activeTabName" @tab-remove="removeTab">
+                    <el-tab-pane v-for="(item,index) in tabs" :closable="item.tabClosable" :name="String(index)" :key="item.guid">
                         <span slot="label">
-                            <i :class="activaIcon"></i>
-                            {{activaMenu}}
+                            <i v-if="item.tabIcon" :class="item.tabIcon"></i>
+                            {{item.tabTitle}}
                         </span>
-                        <transition name="fade" mode="out-in">
-                            <router-view/>
-                        </transition>
-                        </el-tab-pane>
-                    </el-tabs>
+                        <transition v-if="index===0" name="fade" mode="out-in"><router-view/></transition>
+                        <div v-if="index>0" :id="'tab'+ String(index)" v-html="item.tabContent"></div>
+                    </el-tab-pane>
+                </el-tabs>
                 <div class='useroperation'>
                     <el-dropdown>
                         <span class="el-dropdown-link">
@@ -61,42 +60,68 @@
     </el-container>
 </template>
 <script>
-import userhead from '../../img/userhead.jpg'
+import Vue from 'vue'
+import bus from '../bus'
+import util from '../util'
 export default {
     data() {
 		return {
             collapsed:false,
-            userheadlink:userhead,
-            activeTabName:0,
-            activaIcon:'',
-            activaMenu:'',
-            userStatus:0
+            userheadlink:require('../../img/userhead.jpg'),
+            userStatus:0,
+            activeTabName:"0",
+            tabs:[{tabIcon:'',tabTitle:'',tabClosable:false}]
 		}
     },
     methods:{
         toggleMenu:function(){
             this.collapsed=!this.collapsed;
         },
-        selectNode:function(index){
-            let nav = this.$router.options.navs.find(n=>n.path===index);
-            this.activaIcon=nav.icon;
-            this.activaMenu=nav.title;
-        },
         toggleStatus:function(command){
             this.userStatus=command;
+        },
+        selectNode:function(index){
+            let nav = this.$router.options.navs.find(n=>n.path===index);
+            this.tabs[0].tabIcon=nav.icon;
+            this.tabs[0].tabTitle=nav.title;
+            this.activeTabName = "0";
+        },
+        removeTab:function(tabName){
+            let num = Number(tabName);
+            let activenum = Number(this.activeTabName);
+            this.tabs.splice(num,1);
+            this.activeTabName = activenum>num?String(activenum - 1):activenum===num?String(num-1):String(activenum);
         }
     },
     mounted:function(){
         var curIndex = this.$router.currentRoute.path;
         this.selectNode(curIndex);
         this.userStatus = 1;
+    },
+    created:function(){
+        bus.$on('addTab', (tab,open) => {
+            tab = tab || {};
+            tab.guid = util.guid();
+            tab.tabTitle = tab.tabTitle || '标签页';
+            this.tabs.push(tab);
+            let tabName = String(this.tabs.length - 1);
+            if(tab.tabComponent){
+                this.$nextTick(function () {
+                    let c =new Vue({
+                        render: h => h(tab.tabComponent)
+                    }).$mount('#tab'+tabName);
+                });
+            }
+            if(open){
+                this.activeTabName = tabName;
+            }
+        })
     }
-
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .main{
     position:absolute;
     bottom:0;
@@ -112,7 +137,7 @@ export default {
     height:100%;
 }
 .el-menu:not(.el-menu--collapse){
-    width:140px;
+    width:150px;
 }
 .el-main{
     padding:0px;
@@ -177,9 +202,5 @@ export default {
 }
 .fade-enter,.fade-leave-active {
 	opacity: 0;
-}
-.el-tabs .el-tabs__nav{
-    margin-top:10px;
-    margin-left:10px;
 }
 </style>

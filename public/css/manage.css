@@ -63102,6 +63102,11 @@ body {
   margin: 0;
 }
 
+.el-tabs .el-tabs__nav {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
