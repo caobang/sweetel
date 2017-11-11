@@ -90,7 +90,7 @@ export default {
             let num = Number(tabName);
             let activenum = Number(this.activeTabName);
             this.tabs.splice(num,1);
-            this.activeTabName = activenum>num?String(activenum - 1):activenum===num?String(num-1):String(activenum);
+            this.activeTabName = activenum>num?String(activenum - 1):activenum===num&&num>this.tabs.length-1?String(num-1):String(activenum);
         }
     },
     mounted:function(){
@@ -135,6 +135,7 @@ export default {
 }
 .el-menu{
     height:100%;
+    border-right:none;
 }
 .el-menu:not(.el-menu--collapse){
     width:150px;
@@ -198,7 +199,7 @@ export default {
     border-radius: 50%;
 }
 .fade-enter-active,.fade-leave-active {
-	transition: all .5s ease;
+	transition: all .2s ease;
 }
 .fade-enter,.fade-leave-active {
 	opacity: 0;
