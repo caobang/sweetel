@@ -15,9 +15,9 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->unsignedTinyInteger('id')->unique();
-            $table->unsignedTinyInteger('parent_id');
+            $table->unsignedTinyInteger('parent_id')->default(0)->comment('父节点id');
             $table->string('name')->comment('名称');
-            $table->unsignedTinyInteger('module_id')->comment('所属模块');
+            $table->unsignedTinyInteger('defaultstatus')->comment('默认权限状态');// 1默认拥有 2默认没有 3默认继承父节点
             $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
         });

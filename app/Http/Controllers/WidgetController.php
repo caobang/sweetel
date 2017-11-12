@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class WidgetController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -13,16 +13,18 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**
-     * Show the application dashboard.
+     * 获取menus.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getconfig(int $tid)
     {
-        return view('home');
+        $data[tid] = $tid;
+        $data[themecolor] = "#13C9CB";
+        return $data;
     }
 }

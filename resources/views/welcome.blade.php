@@ -90,6 +90,7 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+            {{ csrf_field() }}
         </div>
     </body>
 </html>

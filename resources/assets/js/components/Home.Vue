@@ -20,7 +20,7 @@
                     <i class="el-icon-fa-navicon" ></i>
                 </div>
                     
-                <template v-for="(item,index) in $router.options.navs">
+                <template v-for="(item,index) in menus">
                     <el-submenu v-if="item.children" :index="item.path" :key="item.path" >
                         <template slot="title"><i :class="item.icon"></i><span slot="title">{{item.title}}</span>
                         </template>
@@ -45,7 +45,7 @@
                 <div class='useroperation'>
                     <el-dropdown>
                         <span class="el-dropdown-link">
-                            小甜<i class="el-icon-caret-bottom el-icon--right"></i>
+                            {{userinfo.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
                         </span>
                             <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="1">个人中心</el-dropdown-item>
@@ -63,25 +63,39 @@
 import Vue from 'vue'
 import bus from '../bus'
 import util from '../util'
+import { mapState } from 'vuex'
+
 export default {
     data() {
 		return {
             collapsed:false,
-            userheadlink:require('../../img/userhead.jpg'),
-            userStatus:0,
             activeTabName:"0",
             tabs:[{tabIcon:'',tabTitle:'',tabClosable:false}]
 		}
+    },
+    computed: {
+        ...mapState([
+            'menus',
+            'userinfo'
+        ]),
+        userStatus(){
+            return this.userinfo.status
+        },
+        userheadlink(){
+	        let userhead = this.userinfo.userhead
+            return userhead?userhead:require('../../img/userhead.jpg')
+        }
+
     },
     methods:{
         toggleMenu:function(){
             this.collapsed=!this.collapsed;
         },
         toggleStatus:function(command){
-            this.userStatus=command;
+            //this.userStatus=command;
         },
         selectNode:function(index){
-            let nav = this.$router.options.navs.find(n=>n.path===index);
+            let nav = this.menus.find(n=>n.path===index);
             this.tabs[0].tabIcon=nav.icon;
             this.tabs[0].tabTitle=nav.title;
             this.activeTabName = "0";
@@ -94,9 +108,10 @@ export default {
         }
     },
     mounted:function(){
-        var curIndex = this.$router.currentRoute.path;
-        this.selectNode(curIndex);
-        this.userStatus = 1;
+        this.$store.dispatch('initApp').then(() => {
+            var curIndex = this.$router.currentRoute.path
+            this.selectNode(curIndex)
+        })
     },
     created:function(){
         bus.$on('addTab', (tab,open) => {

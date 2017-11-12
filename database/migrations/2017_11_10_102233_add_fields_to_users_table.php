@@ -14,8 +14,8 @@ class AddFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('userhead')->comment('用户头像');
-            $table->string('nickname')->comment('用户昵称');
+            $table->string('userhead')->nullable()->comment('用户头像');
+            $table->string('nickname')->nullable()->comment('用户昵称');
             $table->unsignedTinyInteger('status')->default(1)->comment('用户状态');//1上线 2离开 3隐身
             $table->string('activation_token',100)->nullable()->comment('激活token');//null 激活状态
             $table->unsignedInteger('team_id')->comment('所属团队');

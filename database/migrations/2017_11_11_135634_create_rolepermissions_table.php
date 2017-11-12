@@ -16,7 +16,8 @@ class CreateRolepermissionsTable extends Migration
         Schema::create('rolepermissions', function (Blueprint $table) {
             $table->unsignedInteger('role_id')->comment('角色id');
             $table->unsignedInteger('permission_id')->comment('权限id');
-            $table->boolean('enabled')->default(0)->comment('有效');
+            $table->boolean('permissionstatus')->comment('权限状态');
+            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@
 <script>
 
   import Vue from 'vue'
-  import Example from '../Example'
+  import Example from '../user/Main'
   import bus from '../../bus'
     export default {
         methods:{

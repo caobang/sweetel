@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreateBusinesspermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id')->unique();
-            $table->string('name')->comment('名称');
-            $table->unsignedTinyInteger('moduletype')->comment('模块类型'); //1默认 2选装
+        Schema::create('businesspermissions', function (Blueprint $table) {
+            $table->unsignedTinyInteger('businesstype')->comment('商业类型');
+            $table->unsignedInteger('permission_id')->comment('权限id');
+            $table->boolean('permissionstatus')->comment('权限状态');
             $table->boolean('enabled')->default(1)->comment('有效');
-            $table->timestamps();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateModulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('businesspermissions');
     }
 }

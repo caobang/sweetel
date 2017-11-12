@@ -8,7 +8,7 @@
 
 <script>
   import Vue from 'vue'
-  import Dashboard from './Dashboard'
+  import Dashboard from '../dashboard/Main'
   import bus from '../../bus'
   export default {
     data() {
