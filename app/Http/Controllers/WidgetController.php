@@ -13,7 +13,7 @@ class WidgetController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
     }
 
     /**
@@ -21,10 +21,12 @@ class WidgetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Request $request
     public function getconfig(int $tid)
     {
-        $data[tid] = $tid;
-        $data[themecolor] = "#13C9CB";
+        //$tid = $request->input('tid');
+        $data['tid'] = $tid;
+        $data['themecolor'] = "#13C9CB";
         return $data;
     }
 }

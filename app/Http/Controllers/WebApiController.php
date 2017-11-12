@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 
-class ApiController extends Controller
+class WebApiController extends Controller
 {
     /**
      * Create a new controller instance.

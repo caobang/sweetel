@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import setting from './modules/setting'
-import api from '../api'
+import {api,apiwidget} from '../api'
 
 Vue.use(Vuex)
 
@@ -31,10 +31,13 @@ const mutations = {
 // 定义actions
 const actions = {
     initApp ({ commit }) {
+        //apiwidget.getConfig(1).then((data)=>{   
+        //    alert(data.tid)
+        //})
         api.getUserInfo().then((data)=>{   
             commit('initUserInfo',data)
         })
-        return api.getMenus().then((data)=>{   
+        return api.getUserMenus().then((data)=>{   
             commit('initMenus',data)
         })
     }

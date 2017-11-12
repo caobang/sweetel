@@ -1,4 +1,4 @@
 import * as api from './api'
-//import * as widget from './widget'
+import * as apiwidget from './api-widget'
 
-export default api//{api,widget}
+export {api,apiwidget}

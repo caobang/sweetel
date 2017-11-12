@@ -20,12 +20,12 @@ Auth::routes();
 Route::get('/home/{module?}', 'HomeController@index')->name('home');
 
 Route::prefix('api/v1')->group(function () {
-    Route::get('/menus', 'ApiController@getmenus');
-    Route::get('/userinfo', 'ApiController@getuserinfo');
+    Route::get('/usermenus', 'WebApiController@getmenus');
+    Route::get('/userinfo', 'WebApiController@getuserinfo');
 
 });
 
-Route::prefix('wapi')->group(function () {
-    Route::get('/config', 'WidgetController@getconfig');
+Route::prefix('api/widget')->group(function () {
+    Route::get('/configs/{tid}', 'WidgetController@getconfig');
 
 });
