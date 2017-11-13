@@ -95,9 +95,9 @@ export default {
             //this.userStatus=command;
         },
         selectNode:function(index){
-            let nav = this.menus.find(n=>n.path===index);
-            this.tabs[0].tabIcon=nav.icon;
-            this.tabs[0].tabTitle=nav.title;
+            let menu = this.menus.find(n=>n.path===index);
+            this.tabs[0].tabIcon=menu.icon;
+            this.tabs[0].tabTitle=menu.title;
             this.activeTabName = "0";
         },
         removeTab:function(tabName){
@@ -108,10 +108,10 @@ export default {
         }
     },
     mounted:function(){
-        this.$store.dispatch('initApp').then(() => {
+        if(this.menus.length>0){
             var curIndex = this.$router.currentRoute.path
             this.selectNode(curIndex)
-        })
+        }
     },
     created:function(){
         bus.$on('addTab', (tab,open) => {
@@ -138,7 +138,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .main{
-    position:absolute;
+    position:fixed;
     bottom:0;
     top:0;
     left:0;
@@ -214,7 +214,7 @@ export default {
     border-radius: 50%;
 }
 .fade-enter-active,.fade-leave-active {
-	transition: all .2s ease;
+	transition: all .1s ease;
 }
 .fade-enter,.fade-leave-active {
 	opacity: 0;

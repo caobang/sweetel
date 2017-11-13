@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import user from './modules/user'
 import setting from './modules/setting'
 import {api,apiwidget} from '../api'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -21,10 +22,10 @@ const getters = {
 // 定义mutations
 const mutations = {
     initUserInfo(state,userinfo) {
-        state.userinfo=userinfo
+        state.userinfo = userinfo
     },
     initMenus(state,menus) {
-        state.menus=menus
+        state.menus = menus
     }
 }
 
@@ -35,14 +36,13 @@ const actions = {
         //    alert(data.tid)
         //})
         //return
-        api.getUserInfo().then((data)=>{   
-            commit('initUserInfo',data)
-        })
-        return api.getUserMenus().then((data)=>{   
-            commit('initMenus',data)
-        })
+        return axios.all([api.getUserInfo(),api.getUserMenus()])
+        .then(axios.spread(function(userInfo,menus){ 
+            commit('initUserInfo',userInfo) 
+            commit('initMenus',menus)
+        }));
     }
-  }
+}
 
 export default new Vuex.Store({
     state,

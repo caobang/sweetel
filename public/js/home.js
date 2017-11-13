@@ -18115,11 +18115,20 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_elem
 
 /* eslint-disable no-new */
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
-    el: '#app',
+    //el: '#app',
     router: __WEBPACK_IMPORTED_MODULE_2__router__["a" /* default */],
     store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */],
     render: function render(h) {
         return h(__WEBPACK_IMPORTED_MODULE_4__components_Home___default.a);
+    },
+    beforeCreate: function beforeCreate() {
+        var _this = this;
+
+        var loading = this.$loading({ text: '系统初始化...' });
+        this.$store.dispatch('initApp').then(function () {
+            _this.$mount('#app');
+            loading.close();
+        });
     }
 });
 
@@ -60170,6 +60179,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_setting__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_setting___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modules_setting__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_axios__);
+
 
 
 
@@ -60208,12 +60220,10 @@ var actions = {
         //    alert(data.tid)
         //})
         //return
-        __WEBPACK_IMPORTED_MODULE_4__api__["a" /* api */].getUserInfo().then(function (data) {
-            commit('initUserInfo', data);
-        });
-        return __WEBPACK_IMPORTED_MODULE_4__api__["a" /* api */].getUserMenus().then(function (data) {
-            commit('initMenus', data);
-        });
+        return __WEBPACK_IMPORTED_MODULE_5_axios___default.a.all([__WEBPACK_IMPORTED_MODULE_4__api__["a" /* api */].getUserInfo(), __WEBPACK_IMPORTED_MODULE_4__api__["a" /* api */].getUserMenus()]).then(__WEBPACK_IMPORTED_MODULE_5_axios___default.a.spread(function (userInfo, menus) {
+            commit('initUserInfo', userInfo);
+            commit('initMenus', menus);
+        }));
     }
 };
 
@@ -60397,7 +60407,7 @@ exports = module.exports = __webpack_require__(75)(undefined);
 
 
 // module
-exports.push([module.i, "\n.main[data-v-85ef4954]{\r\n    position:absolute;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside[data-v-85ef4954]{\r\n    width:auto !important;\r\n    overflow: inherit;\n}\n.el-menu[data-v-85ef4954]{\r\n    height:100%;\r\n    border-right:none;\n}\n.el-menu[data-v-85ef4954]:not(.el-menu--collapse){\r\n    width:150px;\n}\n.el-main[data-v-85ef4954]{\r\n    padding:0px;\n}\n.collapse-btn[data-v-85ef4954]{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn[data-v-85ef4954]:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.el-menu .el-menu-item:not(.is-active):hover i[data-v-85ef4954],.el-menu .el-submenu:hover .el-submenu__title i[data-v-85ef4954]{\r\n    color: #fff;\n}\n.el-dropdown-link[data-v-85ef4954]{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.el-dropdown-status[data-v-85ef4954]{\r\n    cursor: pointer;\r\n    color: #fff;\r\n    font-size: 12px;\n}\n.el-dropdown-status i.online[data-v-85ef4954]{\r\n    color: #67C23A;\n}\n.el-dropdown-status i.leave[data-v-85ef4954]{\r\n    color: #FA5555;\n}\n.el-dropdown-status i.stealth[data-v-85ef4954]{\r\n    color: #EB9E05;\n}\n.el-dropdown-status i.offline[data-v-85ef4954]{\r\n    color: #878D99;\n}\n.useroperation[data-v-85ef4954]{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown[data-v-85ef4954]{\r\n    display:block;\n}\n.userhead[data-v-85ef4954]{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img[data-v-85ef4954]{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\n.fade-enter-active[data-v-85ef4954],.fade-leave-active[data-v-85ef4954] {\r\n\t-webkit-transition: all .2s ease;\r\n\ttransition: all .2s ease;\n}\n.fade-enter[data-v-85ef4954],.fade-leave-active[data-v-85ef4954] {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.main[data-v-85ef4954]{\r\n    position:fixed;\r\n    bottom:0;\r\n    top:0;\r\n    left:0;\r\n    right:0;\n}\n.el-aside[data-v-85ef4954]{\r\n    width:auto !important;\r\n    overflow: inherit;\n}\n.el-menu[data-v-85ef4954]{\r\n    height:100%;\r\n    border-right:none;\n}\n.el-menu[data-v-85ef4954]:not(.el-menu--collapse){\r\n    width:150px;\n}\n.el-main[data-v-85ef4954]{\r\n    padding:0px;\n}\n.collapse-btn[data-v-85ef4954]{\r\n    height:30px;\r\n    line-height:30px;\r\n    text-align:center;\r\n    color:#878d99;\r\n    cursor: pointer;\n}\n.collapse-btn[data-v-85ef4954]:hover{\r\n    background-color:#242629;\r\n    color:#fff;\n}\n.el-menu .el-menu-item:not(.is-active):hover i[data-v-85ef4954],.el-menu .el-submenu:hover .el-submenu__title i[data-v-85ef4954]{\r\n    color: #fff;\n}\n.el-dropdown-link[data-v-85ef4954]{\r\n    cursor: pointer;\r\n    color: #409EFF;\n}\n.el-dropdown-status[data-v-85ef4954]{\r\n    cursor: pointer;\r\n    color: #fff;\r\n    font-size: 12px;\n}\n.el-dropdown-status i.online[data-v-85ef4954]{\r\n    color: #67C23A;\n}\n.el-dropdown-status i.leave[data-v-85ef4954]{\r\n    color: #FA5555;\n}\n.el-dropdown-status i.stealth[data-v-85ef4954]{\r\n    color: #EB9E05;\n}\n.el-dropdown-status i.offline[data-v-85ef4954]{\r\n    color: #878D99;\n}\n.useroperation[data-v-85ef4954]{\r\n    position:absolute;\r\n    right:10px;\r\n    top:0px;\r\n    height:50px;\r\n    line-height:50px;\n}\n.useroperation .el-dropdown[data-v-85ef4954]{\r\n    display:block;\n}\n.userhead[data-v-85ef4954]{\r\n    padding:10px;\r\n    text-align: center;\n}\n.userhead img[data-v-85ef4954]{\r\n    width:40px;\r\n    height:40px;\r\n    border-radius: 50%;\n}\n.fade-enter-active[data-v-85ef4954],.fade-leave-active[data-v-85ef4954] {\r\n\t-webkit-transition: all .1s ease;\r\n\ttransition: all .1s ease;\n}\n.fade-enter[data-v-85ef4954],.fade-leave-active[data-v-85ef4954] {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -60508,11 +60518,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             //this.userStatus=command;
         },
         selectNode: function selectNode(index) {
-            var nav = this.menus.find(function (n) {
+            var menu = this.menus.find(function (n) {
                 return n.path === index;
             });
-            this.tabs[0].tabIcon = nav.icon;
-            this.tabs[0].tabTitle = nav.title;
+            this.tabs[0].tabIcon = menu.icon;
+            this.tabs[0].tabTitle = menu.title;
             this.activeTabName = "0";
         },
         removeTab: function removeTab(tabName) {
@@ -60523,24 +60533,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
     mounted: function mounted() {
-        var _this = this;
-
-        this.$store.dispatch('initApp').then(function () {
-            var curIndex = _this.$router.currentRoute.path;
-            _this.selectNode(curIndex);
-        });
+        if (this.menus.length > 0) {
+            var curIndex = this.$router.currentRoute.path;
+            this.selectNode(curIndex);
+        }
     },
     created: function created() {
-        var _this2 = this;
+        var _this = this;
 
         __WEBPACK_IMPORTED_MODULE_1__bus__["a" /* default */].$on('addTab', function (tab, open) {
             tab = tab || {};
             tab.guid = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].guid();
             tab.tabTitle = tab.tabTitle || '标签页';
-            _this2.tabs.push(tab);
-            var tabName = String(_this2.tabs.length - 1);
+            _this.tabs.push(tab);
+            var tabName = String(_this.tabs.length - 1);
             if (tab.tabComponent) {
-                _this2.$nextTick(function () {
+                _this.$nextTick(function () {
                     var c = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                         render: function render(h) {
                             return h(tab.tabComponent);
@@ -60549,7 +60557,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 });
             }
             if (open) {
-                _this2.activeTabName = tabName;
+                _this.activeTabName = tabName;
             }
         });
     }
