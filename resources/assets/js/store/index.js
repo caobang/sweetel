@@ -21,11 +21,14 @@ const getters = {
 
 // 定义mutations
 const mutations = {
-    initUserInfo(state,userinfo) {
+    loadUserInfo(state,userinfo) {
         state.userinfo = userinfo
     },
-    initMenus(state,menus) {
+    loadMenus(state,menus) {
         state.menus = menus
+    },
+    updateUserStatus(state,status) {
+        state.userinfo.status = status
     }
 }
 
@@ -37,10 +40,15 @@ const actions = {
         //})
         //return
         return axios.all([api.getUserInfo(),api.getUserMenus()])
-        .then(axios.spread(function(userInfo,menus){ 
-            commit('initUserInfo',userInfo) 
-            commit('initMenus',menus)
+        .then(axios.spread((userInfo,menus)=>{ 
+            commit('loadUserInfo',userInfo) 
+            commit('loadMenus',menus)
         }));
+    },
+    updateUserStatus({ commit },status) {
+        api.updateUserStatus({status:status}).then(()=>{
+            commit('updateUserStatus',status)
+        })
     }
 }
 

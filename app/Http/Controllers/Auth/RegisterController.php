@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -48,6 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'teamname' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -62,10 +64,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        DB::table('teams')->insertGetId([
+            'name' => 'dd'
         ]);
+        DB::table('users')->insertGetId([
+            'name' => 'sf',
+            'email' => 'df',
+            'password' => 'er',
+            'team_id' => 1,
+            'role_id' => 1
+        ]);
+        return User::find(1);
+
+        DB::transaction(function () {
+            /*$teamid = DB::table('teams')->insertGetId([
+                'name' => $data['teamname']
+            ]);
+            DB::table('robots')->insert([
+                'nickname' => '小甜机器人',
+                'team_id' => $teamid
+            ]);*/
+            $userid = DB::table('users')->insertGetId([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'team_id' => 1,
+                'role_id' => 1
+            ]);
+            /*DB::table('groupusers')->insert([
+                'group_id' => 1,
+                'user_id' => $userid
+            ]);
+            DB::table('groupusers')->insert([
+                'group_id' => 2,
+                'user_id' => $userid
+            ]);*/
+        });
+
     }
 }

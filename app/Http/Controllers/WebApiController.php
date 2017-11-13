@@ -25,8 +25,8 @@ class WebApiController extends Controller
      */
     public function getuserinfo()
     {
-        $data = Auth::user();
-        return $data;
+        $user = Auth::user();
+        return $user;
     }
 
     /**
@@ -36,8 +36,20 @@ class WebApiController extends Controller
      */
     public function getmenus()
     {
-        $uid = Auth::id();
         $data = Menu::where('enabled', 1)->get();
         return $data;
+    }
+
+    /**
+     * 更新用户状态.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateuserstatus(Request $request)
+    {
+        $status = $request->input('status',1);
+        $user = Auth::user();
+        $user->status = $status;
+        $user->save();
     }
 }

@@ -12,6 +12,7 @@
     </head>
     <body>
         <div id="app"></div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
         <!-- Scripts -->
         <script src="{{ mix('js/home.js') }}"></script>
     </body>

@@ -4,7 +4,7 @@
             <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
                 <div class="userhead">
                     <img :src="userheadlink" />
-                    <el-dropdown @command="toggleStatus" style="display:block;padding-top:10px;">
+                    <el-dropdown @command="changeStatus" style="display:block;padding-top:10px;">
                         <span class="el-dropdown-status">
                             <i class="el-icon-fa-circle" :class="{online:userStatus==1,leave:userStatus==2,stealth:userStatus==3,offline:userStatus==0}"></i>
                         </span>
@@ -43,7 +43,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class='useroperation'>
-                    <el-dropdown>
+                    <el-dropdown  @command="userAction">
                         <span class="el-dropdown-link">
                             {{userinfo.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
                         </span>
@@ -75,8 +75,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'menus',
-            'userinfo'
+            'userinfo',
+            'menus'
         ]),
         userStatus(){
             return this.userinfo.status
@@ -89,10 +89,15 @@ export default {
     },
     methods:{
         toggleMenu:function(){
-            this.collapsed=!this.collapsed;
+            this.collapsed=!this.collapsed
         },
-        toggleStatus:function(command){
-            //this.userStatus=command;
+        changeStatus:function(command){
+            this.$store.dispatch('updateUserStatus',command)
+        },
+        userAction:function(command){
+            if(command === "4"){
+                document.getElementById('logout-form').submit()
+            }
         },
         selectNode:function(index){
             let menu = this.menus.find(n=>n.path===index);

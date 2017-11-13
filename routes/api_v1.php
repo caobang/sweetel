@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/usermenus', 'WebApiController@getmenus');
 
 Route::middleware('auth:api')->get('/userinfo', 'WebApiController@getuserinfo');
 
+Route::middleware('auth:api')->patch('/userstatus', 'WebApiController@updateuserstatus');
+
 Route::middleware('auth:api')->get('/test', function (Request $request) {
     return $request->user();
 });
