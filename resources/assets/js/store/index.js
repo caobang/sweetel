@@ -31,9 +31,10 @@ const mutations = {
 // 定义actions
 const actions = {
     initApp ({ commit }) {
-        //apiwidget.getConfig(1).then((data)=>{   
+        //apiwidget.getConfig(12).then((data)=>{   
         //    alert(data.tid)
         //})
+        //return
         api.getUserInfo().then((data)=>{   
             commit('initUserInfo',data)
         })

@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| WebWidget Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -11,10 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
-
-Route::get('/home/{module?}', 'HomeController@index')->name('home');
+Route::get('/configs/{tid}', 'WidgetController@getconfig');
