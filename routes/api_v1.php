@@ -20,6 +20,14 @@ Route::middleware('auth:api')->get('/userinfo', 'WebApiController@getuserinfo');
 
 Route::middleware('auth:api')->patch('/userstatus', 'WebApiController@updateuserstatus');
 
+Route::middleware('auth:api')->get('/usergroups', 'WebApiController@getusergroups');
+
+Route::middleware('auth:api')->post('/usergroups', 'WebApiController@addusergroup');
+
+Route::middleware('auth:api')->patch('/usergroups/{id}', 'WebApiController@editusergroup')->where('id', '[0-9]+');
+
+Route::middleware('auth:api')->delete('/usergroups/{id}', 'WebApiController@delusergroup')->where('id', '[0-9]+');
+
 Route::middleware('auth:api')->get('/test', function (Request $request) {
     return $request->user();
 });

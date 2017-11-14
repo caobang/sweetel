@@ -2,7 +2,7 @@ import {api} from '../../api'
 
 // 应用初始状态
 const state = {
-    usergroups:[],
+    usergroups:[{}],
     userdata:{total:0,list:[]}
 }
 
