@@ -11,11 +11,16 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
-                            <label for="teamname" class="col-md-4 control-label">企业名称</label>
+                        <div class="form-group{{ $errors->has('teamname') ? ' has-error' : '' }}">
+                            <label for="teamname" class="col-md-4 control-label">公司名称</label>
 
                             <div class="col-md-6">
-                                <input id="teamname" type="text" class="form-control" name="name" value="{{ old('teamname') }}" required autofocus>
+                                <input id="teamname" type="text" class="form-control" name="teamname" value="{{ old('teamname') }}" required autofocus>
+                                @if ($errors->has('teamname'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('teamname') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -57,6 +61,24 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
@@ -64,42 +86,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        DB::table('teams')->insertGetId([
-            'name' => 'dd'
-        ]);
-        DB::table('users')->insertGetId([
-            'name' => 'sf',
-            'email' => 'df',
-            'password' => 'er',
-            'team_id' => 1,
-            'role_id' => 1
-        ]);
-        return User::find(1);
-
-        DB::transaction(function () {
-            /*$teamid = DB::table('teams')->insertGetId([
-                'name' => $data['teamname']
+        $uid = DB::transaction(function ()use ($data) {
+            $teamid = DB::table('teams')->insertGetId([
+                'name' => $data['teamname'],
+                'created_at' => new Carbon
             ]);
             DB::table('robots')->insert([
-                'nickname' => '小甜机器人',
-                'team_id' => $teamid
-            ]);*/
+                'nickname' => '客服机器人',
+                'team_id' => $teamid,
+                'created_at' => new Carbon
+            ]);
             $userid = DB::table('users')->insertGetId([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'team_id' => 1,
-                'role_id' => 1
+                'role_id' => 1,
+                'created_at' => new Carbon
             ]);
-            /*DB::table('groupusers')->insert([
+            DB::table('groupusers')->insert([
                 'group_id' => 1,
-                'user_id' => $userid
+                'user_id' => $userid,
+                'created_at' => new Carbon
             ]);
             DB::table('groupusers')->insert([
                 'group_id' => 2,
-                'user_id' => $userid
-            ]);*/
+                'user_id' => $userid,
+                'created_at' => new Carbon
+            ]);
+            return $userid;
         });
-
+        return User::find($uid);
     }
 }

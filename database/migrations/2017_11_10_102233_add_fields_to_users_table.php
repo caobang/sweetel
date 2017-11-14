@@ -17,6 +17,7 @@ class AddFieldsToUsersTable extends Migration
             $table->string('userhead')->nullable()->comment('用户头像');
             $table->string('nickname')->nullable()->comment('用户昵称');
             $table->unsignedTinyInteger('status')->default(1)->comment('用户状态');//1上线 2离开 3隐身
+            $table->unsignedTinyInteger('loginstatus')->default(0)->comment('登录状态');//1在线 0离线
             $table->string('activation_token',100)->nullable()->comment('激活token');//null 激活状态
             $table->unsignedInteger('team_id')->comment('所属团队');
             $table->unsignedInteger('role_id')->comment('所属角色');
@@ -35,6 +36,7 @@ class AddFieldsToUsersTable extends Migration
             $table->dropColumn('userhead');
             $table->dropColumn('nickname');
             $table->dropColumn('status');
+            $table->dropColumn('loginstatus');
             $table->dropColumn('activation_token');
             $table->dropColumn('team_id');
             $table->dropColumn('role_id');

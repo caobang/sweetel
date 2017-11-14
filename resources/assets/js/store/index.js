@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import setting from './modules/setting'
-import {api,apiwidget} from '../api'
 import axios from 'axios'
+import {api,apiwidget} from '../api'
 
 Vue.use(Vuex)
 
@@ -21,13 +21,13 @@ const getters = {
 
 // 定义mutations
 const mutations = {
-    loadUserInfo(state,userinfo) {
+    setUserInfo(state,userinfo) {
         state.userinfo = userinfo
     },
-    loadMenus(state,menus) {
+    setMenus(state,menus) {
         state.menus = menus
     },
-    updateUserStatus(state,status) {
+    setUserStatus(state,status) {
         state.userinfo.status = status
     }
 }
@@ -41,13 +41,13 @@ const actions = {
         //return
         return axios.all([api.getUserInfo(),api.getUserMenus()])
         .then(axios.spread((userInfo,menus)=>{ 
-            commit('loadUserInfo',userInfo) 
-            commit('loadMenus',menus)
+            commit('setUserInfo',userInfo) 
+            commit('setMenus',menus)
         }));
     },
     updateUserStatus({ commit },status) {
         api.updateUserStatus({status:status}).then(()=>{
-            commit('updateUserStatus',status)
+            commit('setUserStatus',status)
         })
     }
 }
@@ -56,9 +56,9 @@ export default new Vuex.Store({
     state,
     getters,
     mutations,
-    actions
-  //modules: {
-  //  user,
-  //  setting
-  //}
+    actions,
+    modules: {
+        user,
+        //setting
+    }
 })

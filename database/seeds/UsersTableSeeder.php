@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('robots')->insert([
             'id' => 1,
-            'nickname' => '小甜机器人',
+            'nickname' => '客服机器人',
             'team_id' => 1
         ]);
 

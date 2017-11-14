@@ -3,7 +3,7 @@
         <el-aside>
             <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
                 <div class="userhead">
-                    <img :src="userheadlink" />
+                    <img :src="userHeadLink" />
                     <el-dropdown @command="changeStatus" style="display:block;padding-top:10px;">
                         <span class="el-dropdown-status">
                             <i class="el-icon-fa-circle" :class="{online:userStatus==1,leave:userStatus==2,stealth:userStatus==3,offline:userStatus==0}"></i>
@@ -81,7 +81,7 @@ export default {
         userStatus(){
             return this.userinfo.status
         },
-        userheadlink(){
+        userHeadLink(){
 	        let userhead = this.userinfo.userhead
             return userhead?userhead:require('../../img/userhead.jpg')
         }
