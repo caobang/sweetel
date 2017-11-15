@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\Menu;
 use App\Models\Group;
-use App\Models\GroupUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
@@ -126,23 +125,23 @@ class WebApiController extends Controller
         $user = Auth::user();
         $size = $request->input('size',0);
         $name = $request->input('name');
-        $groupid = $request->input('groupid',1);
+        $usergroupid = $request->input('usergroupid',0);
         $orderby = $request->input('orderby');
         $sort = $request->input('sort');
         $data = DB::table('users')
-            ->leftJoin('groupusers', 'groupusers.user_id', '=', 'users.id')
-            ->leftJoin('groups', 'groups.id', '=', 'groupusers.group_id')
+            ->leftJoin('groups', 'groups.id', '=', 'users.usergroup_id')
             ->leftJoin('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.deleted_at', null)
-            ->where('groupusers.deleted_at', null)
             ->where('groups.deleted_at', null)
             ->where('roles.deleted_at', null)
             ->where('users.team_id', $user->team_id)
             ->where('users.name','like', '%'.$name.'%')
             ->where('groups.grouptype', 1)
-            ->whereIn('groupusers.group_id', [$groupid])
+            ->when($usergroupid>0, function ($query) use ($usergroupid) {
+                return $query->where('users.usergroup_id', $usergroupid);
+            })
             ->orderBy('users.'.$orderby, $sort)
-            ->select('users.id', 'users.name', 'users.email', 'groups.name as groupname', 'roles.name as rolename', 'users.created_at')
+            ->select('users.id', 'users.name', 'users.email', 'users.usergroup_id', 'groups.name as groupname', 'users.role_id', 'roles.name as rolename', 'users.created_at')
             ->paginate($size);
         return ['total'=>$data->total(),'list'=>$data->items()];
     }
@@ -159,16 +158,14 @@ class WebApiController extends Controller
         $email = $request->input('email');
         $usergroupid = $request->input('usergroupid');
         $roleid = $request->input('roleid');
-        $user = Group::create(['name' => $name,
+        $user = User::create(['name' => $name,
                         'email' => $email,
                         'password' => bcrypt('111111'),
-                        'roleid' => $user->$roleid,
-                        'team_id' => $user->team_id
+                        'role_id' => $roleid,
+                        'team_id' => $user->team_id,
+                        'usergroup_id' => $usergroupid,
+                        'chatgroup_id' => 2
                         ]);
-        GroupUser::Create([
-            'group_id' => $usergroupid,
-            'user_id' => $user->id
-        ]);
     }
 
     /**
@@ -186,13 +183,10 @@ class WebApiController extends Controller
         $user->fill([
             'name' => $name,
             'email' => $email,
-            'roleid' => $roleid
+            'roleid' => $roleid,
+            'usergroup_id' => $usergroupid,
         ]);
         $user->save();
-        GroupUser::updateOrCreate([
-            'group_id' => $usergroupid,
-            'user_id' => $id
-        ]);
     }
 
     /**

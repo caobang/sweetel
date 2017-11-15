@@ -28,16 +28,9 @@ class UsersTableSeeder extends Seeder
             'email' => '602098328@qq.com',
             'password' => bcrypt('111111'),
             'team_id' => 1,
-            'role_id' => 1
+            'role_id' => 1,
+            'usergroup_id' => 1,
+            'chatgroup_id' => 2
         ]);
-
-        DB::table('groupusers')->insert([
-            'group_id' => 1,
-            'user_id' => 1
-        ]);
-        //DB::table('groupusers')->insert([
-        //    'group_id' => 2,
-        //    'user_id' => 1
-        //]);
     }
 }

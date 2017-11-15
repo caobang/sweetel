@@ -102,11 +102,8 @@ class RegisterController extends Controller
                 'password' => bcrypt($data['password']),
                 'team_id' => 1,
                 'role_id' => 1,
-                'created_at' => new Carbon
-            ]);
-            DB::table('groupusers')->insert([
-                'group_id' => 1,
-                'user_id' => $userid,
+                'usergroup_id' => 1,
+                'chatgroup_id' => 2,
                 'created_at' => new Carbon
             ]);
             return $userid;

@@ -2,7 +2,8 @@ import {api} from '../../api'
 
 // 应用初始状态
 const state = {
-    userGroups:[{}],
+    userGroups:[{id:1,name:'',parent_id:0}],
+    userRoles:[{id:1,name:'管理员'},{id:2,name:'权限1'},{id:3,name:'权限2'}],
     userData:{total:0,list:[]}
 }
 
@@ -39,7 +40,7 @@ const actions = {
     delUserGroup ({ commit },id) {
         return api.delUserGroup(id)
     },
-    loadUserData({ commit },params) {
+    loadPagingUsers({ commit },params) {
         return api.getPagingUsers(params).then((data)=>{
             commit('setUserData',data)
         })

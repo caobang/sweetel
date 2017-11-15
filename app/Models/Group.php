@@ -29,6 +29,6 @@ class Group extends Model
      * @var array
      */
     protected $hidden = [
-        'enabled', 'created_at', 'updated_at', 'deleted_at','grouptype','team_id'
+        'enabled', 'created_at', 'updated_at', 'deleted_at','grouptype'
     ];
 }
