@@ -109,11 +109,6 @@ class RegisterController extends Controller
                 'user_id' => $userid,
                 'created_at' => new Carbon
             ]);
-            DB::table('groupusers')->insert([
-                'group_id' => 2,
-                'user_id' => $userid,
-                'created_at' => new Carbon
-            ]);
             return $userid;
         });
         return User::find($uid);

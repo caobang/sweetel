@@ -1,7 +1,7 @@
 <template>
     <el-container class="main">
         <el-aside>
-            <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#2D2F33" text-color="#fff" active-text-color="#409EFF">
+            <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#324157" text-color="#fff" active-text-color="#409EFF">
                 <div class="userhead">
                     <img :src="userHeadLink" />
                     <el-dropdown @command="changeStatus" style="display:block;padding-top:10px;">
@@ -171,7 +171,7 @@ export default {
     cursor: pointer;
 }
 .collapse-btn:hover{
-    background-color:#242629;
+    background-color:#283446;
     color:#fff;
 }
 .el-menu .el-menu-item:not(.is-active):hover i,.el-menu .el-submenu:hover .el-submenu__title i{

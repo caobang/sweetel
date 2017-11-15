@@ -16,20 +16,8 @@ const getters = {
 const mutations = {
     setUserGroups(state,userGroups) {
         state.userGroups = userGroups
+        //state.userGroups.unshift({id:-1,name:'全部',parent_id:0})
     },
-    /*addUserGroup(state,group) {
-        state.usergroups.push(usergroups)
-    },
-    editUserGroup(state,group) {
-        let item = state.usergroups.find(g=>g.id==group.id)
-        if(item){
-            item.name=group.name
-        }
-    },
-    delUserGroup(state,groupid) {
-        let index = state.usergroups.find(g=>g.id==groupid)
-        state.usergroups.splice(index, 1)
-    },*/
     setUserData(state,userData) {
         state.userData = userData
     }
@@ -51,11 +39,20 @@ const actions = {
     delUserGroup ({ commit },id) {
         return api.delUserGroup(id)
     },
-    loadUserData({ commit },groupid,username) {
-        return api.getUserData({groupid:groupid,username:username}).then((data)=>{
+    loadUserData({ commit },params) {
+        return api.getPagingUsers(params).then((data)=>{
             commit('setUserData',data)
         })
-    }
+    },
+    addUser ({ commit },user) {
+        return api.addUser(user)
+    },
+    editUser ({ commit },user) {
+        return api.editUser(user)
+    },
+    delUser ({ commit },id) {
+        return api.delUser(id)
+    },
 }
 
 export default {

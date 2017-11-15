@@ -7,7 +7,7 @@ body{
     margin:0;
 }
 
-.el-tree .el-tabs .el-tabs__nav{
+.el-tabs .el-tabs__nav{
     margin-top:10px;
     margin-left:10px;
 }
@@ -17,13 +17,14 @@ body{
 .el-tree .el-tree-node__content div{
     display:none;
 }
-
 .el-tree-node__content:hover div{
     display:block;
 }
-
 .is-current .el-tree-node__content div{
     display:block;
+}
+.el-table th,.el-table td{
+    border-color:#D8DCE5 !important;
 }
 
 // font-awesome css

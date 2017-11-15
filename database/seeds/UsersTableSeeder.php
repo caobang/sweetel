@@ -35,9 +35,9 @@ class UsersTableSeeder extends Seeder
             'group_id' => 1,
             'user_id' => 1
         ]);
-        DB::table('groupusers')->insert([
-            'group_id' => 2,
-            'user_id' => 1
-        ]);
+        //DB::table('groupusers')->insert([
+        //    'group_id' => 2,
+        //    'user_id' => 1
+        //]);
     }
 }

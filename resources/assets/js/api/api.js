@@ -9,10 +9,20 @@ export const getUserMenus = () => { return axios.get(`${base}/usermenus`).then(r
 
 export const updateUserStatus = params => { return axios.patch(`${base}/userstatus`,params).then(res => res.data) }
 
+
 export const getUserGroups = () => { return axios.get(`${base}/usergroups`).then(res => res.data) }
 
 export const addUserGroup = params => { return axios.post(`${base}/usergroups`,params).then(res => res.data) }
 
-export const editUserGroup = params => { return axios.patch(`${base}/usergroups/${params.id}`,params).then(res => res.data) }
+export const editUserGroup = params => { return axios.put(`${base}/usergroups/${params.id}`,params).then(res => res.data) }
 
 export const delUserGroup = id => { return axios.delete(`${base}/usergroups/${id}`).then(res => res.data) }
+
+
+export const getPagingUsers = params => { return axios.get(`${base}/users`,{params:params}).then(res => res.data) }
+
+export const addUser = params => { return axios.post(`${base}/users`,params).then(res => res.data) }
+
+export const editUser = params => { return axios.put(`${base}/users/${params.id}`,params).then(res => res.data) }
+
+export const delUser = id => { return axios.delete(`${base}/users/${id}`).then(res => res.data) }
