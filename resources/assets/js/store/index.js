@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 // 应用初始状态
 const state = {
-    userinfo:{},
+    userInfo:{},
     menus: []
 }
 
@@ -21,14 +21,14 @@ const getters = {
 
 // 定义mutations
 const mutations = {
-    setUserInfo(state,userinfo) {
-        state.userinfo = userinfo
+    setUserInfo(state,userInfo) {
+        state.userInfo = userInfo
     },
     setMenus(state,menus) {
         state.menus = menus
     },
     setUserStatus(state,status) {
-        state.userinfo.status = status
+        state.userInfo.status = status
     }
 }
 

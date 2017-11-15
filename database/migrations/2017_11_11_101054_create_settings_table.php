@@ -16,8 +16,8 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             //$table->increments('id');
             $table->unsignedInteger('team_id')->unique();
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

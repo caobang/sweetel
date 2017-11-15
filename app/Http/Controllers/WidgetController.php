@@ -22,7 +22,7 @@ class WidgetController extends Controller
      * @return \Illuminate\Http\Response
      */
     //Request $request
-    public function getconfig(int $tid)
+    public function getConfig(int $tid)
     {
         //$tid = $request->input('tid');
         $data['tid'] = $tid;

@@ -21,7 +21,8 @@ class AddFieldsToUsersTable extends Migration
             $table->string('activation_token',100)->nullable()->comment('激活token');//null 激活状态
             $table->unsignedInteger('team_id')->comment('所属团队');
             $table->unsignedInteger('role_id')->comment('所属角色');
-            $table->boolean('enabled')->default(1)->comment('有效');
+            //$table->boolean('enabled')->default(1)->comment('有效');
+            $table->softDeletes();
         });
     }
 
@@ -40,7 +41,7 @@ class AddFieldsToUsersTable extends Migration
             $table->dropColumn('activation_token');
             $table->dropColumn('team_id');
             $table->dropColumn('role_id');
-            $table->dropColumn('enabled');
+            $table->dropColumn('deleted_at');
         });
     }
 }

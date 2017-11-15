@@ -17,7 +17,8 @@ class CreateBusinesspermissionsTable extends Migration
             $table->unsignedTinyInteger('businesstype')->comment('商业类型');
             $table->unsignedInteger('permission_id')->comment('权限id');
             $table->boolean('permissionstatus')->comment('权限状态');
-            $table->boolean('enabled')->default(1)->comment('有效');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

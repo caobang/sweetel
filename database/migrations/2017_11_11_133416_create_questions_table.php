@@ -19,8 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->string('answer')->comment('答案');
             $table->unsignedInteger('robot_id')->comment('机器人id');
             $table->unsignedInteger('group_id')->comment('组id');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

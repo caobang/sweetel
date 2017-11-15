@@ -12,4 +12,4 @@
 */
 
 
-Route::get('/configs/{tid}', 'WidgetController@getconfig');
+Route::get('/configs/{tid}', 'WidgetController@getConfig');

@@ -23,8 +23,8 @@ class CreateCustomersTable extends Migration
             $table->string('remark')->comment('备注');
             $table->unsignedTinyInteger('fromtype');//来源类型 1桌面网站 2移动手机 3微信 4App 5客户中心
             $table->unsignedInteger('group_id')->comment('组id');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

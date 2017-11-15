@@ -17,8 +17,8 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('角色名称');
             $table->unsignedInteger('team_id')->comment('所属团队');//0系统共用
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

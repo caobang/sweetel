@@ -18,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->unsignedInteger('group_id')->comment('组id');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

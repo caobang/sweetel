@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\Group;
+use Illuminate\Support\Facades\DB;
 
 class WebApiController extends Controller
 {
@@ -24,7 +25,7 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getuserinfo()
+    public function getUserInfo()
     {
         $user = Auth::user();
         return $user;
@@ -35,9 +36,9 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getmenus()
+    public function getMenus()
     {
-        $data = Menu::where('enabled', 1)->get();
+        $data = Menu::all();
         return $data;
     }
 
@@ -46,7 +47,7 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function updateuserstatus(Request $request)
+    public function updateUserStatus(Request $request)
     {
         $status = $request->input('status',1);
         $user = Auth::user();
@@ -59,14 +60,12 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getusergroups()
+    public function getUserGroups()
     {
         $user = Auth::user();
-        $data = Group::where('grouptype', 1)
+        return Group::where('grouptype', 1)
             ->whereIn('team_id', [0, $user->team_id])
-            ->where('enabled', 1)
             ->get();
-        return $data;
     }
 
     /**
@@ -74,17 +73,16 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addusergroup()
+    public function addUserGroup(Request $request)
     {
         $user = Auth::user();
-        $groupname = $request->input('groupname');
-        $parentid = $request->input('parentid');
-        $group = Group::create(['parent_id' => $parentid,
+        $groupname = $request->input('name');
+        $parentid = $request->input('parentid',0);
+        Group::create(['parent_id' => $parentid,
                         'grouptype' => 1,
                         'name' => $groupname,
                         'team_id' => $user->team_id
                         ]);
-        return $group->id;
     }
 
     /**
@@ -92,12 +90,14 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function editusergroup($id)
+    public function editUserGroup(Request $request,int $id)
     {
-        $groupname = $request->input('groupname');
+        $groupname = $request->input('name');
         $group = Group::find($id);
-        $group->name = $groupname;
-        $group->save();
+        if($group-> team_id > 0){
+            $group->fill(['name' => $groupname]);
+            $group->save();
+        }
     }
 
     /**
@@ -105,10 +105,11 @@ class WebApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function delusergroup($id)
+    public function delUserGroup(int $id)
     {
         $group = Group::find($id);
-        $group->enabled = 0;
-        $group->save();
+        if($group-> team_id > 0){
+            $group->delete();
+        }
     }
 }

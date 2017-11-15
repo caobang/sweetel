@@ -13,6 +13,6 @@ export const getUserGroups = () => { return axios.get(`${base}/usergroups`).then
 
 export const addUserGroup = params => { return axios.post(`${base}/usergroups`,params).then(res => res.data) }
 
-export const editusergroup = params => { return axios.patch(`${base}/usergroups/${params.id}`,params).then(res => res.data) }
+export const editUserGroup = params => { return axios.patch(`${base}/usergroups/${params.id}`,params).then(res => res.data) }
 
-export const delusergroup = id => { return axios.delete(`${base}/usergroups/${id}`).then(res => res.data) }
+export const delUserGroup = id => { return axios.delete(`${base}/usergroups/${id}`).then(res => res.data) }

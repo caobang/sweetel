@@ -14,19 +14,19 @@ use Illuminate\Http\Request;
 */
 
 
-Route::middleware('auth:api')->get('/usermenus', 'WebApiController@getmenus');
+Route::middleware('auth:api')->get('/usermenus', 'WebApiController@getMenus');
 
-Route::middleware('auth:api')->get('/userinfo', 'WebApiController@getuserinfo');
+Route::middleware('auth:api')->get('/userinfo', 'WebApiController@getUserInfo');
 
-Route::middleware('auth:api')->patch('/userstatus', 'WebApiController@updateuserstatus');
+Route::middleware('auth:api')->patch('/userstatus', 'WebApiController@updateUserStatus');
 
-Route::middleware('auth:api')->get('/usergroups', 'WebApiController@getusergroups');
+Route::middleware('auth:api')->get('/usergroups', 'WebApiController@getUserGroups');
 
-Route::middleware('auth:api')->post('/usergroups', 'WebApiController@addusergroup');
+Route::middleware('auth:api')->post('/usergroups', 'WebApiController@addUserGroup');
 
-Route::middleware('auth:api')->patch('/usergroups/{id}', 'WebApiController@editusergroup')->where('id', '[0-9]+');
+Route::middleware('auth:api')->patch('/usergroups/{id}', 'WebApiController@editUserGroup')->where('id', '[0-9]+');
 
-Route::middleware('auth:api')->delete('/usergroups/{id}', 'WebApiController@delusergroup')->where('id', '[0-9]+');
+Route::middleware('auth:api')->delete('/usergroups/{id}', 'WebApiController@delUserGroup')->where('id', '[0-9]+');
 
 Route::middleware('auth:api')->get('/test', function (Request $request) {
     return $request->user();

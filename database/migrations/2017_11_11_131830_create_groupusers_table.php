@@ -16,8 +16,8 @@ class CreateGroupusersTable extends Migration
         Schema::create('groupusers', function (Blueprint $table) {
             $table->unsignedInteger('group_id')->comment('组id');
             $table->unsignedInteger('user_id')->comment('用户id');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

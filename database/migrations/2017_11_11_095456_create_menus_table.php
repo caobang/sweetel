@@ -19,8 +19,8 @@ class CreateMenusTable extends Migration
             $table->string('title')->comment('菜单标题');
             $table->string('icon')->comment('图标');
             $table->string('path')->comment('路径');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

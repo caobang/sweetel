@@ -21,8 +21,8 @@ class CreateRobotsTable extends Migration
             $table->string('welcome')->nullable()->comment('欢迎语');
             $table->unsignedTinyInteger('status')->default(1)->comment('状态');// 1机器人优先 2客服优先 3关闭
             $table->unsignedInteger('team_id')->comment('所属团队');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,8 +17,8 @@ class CreateRolepermissionsTable extends Migration
             $table->unsignedInteger('role_id')->comment('角色id');
             $table->unsignedInteger('permission_id')->comment('权限id');
             $table->boolean('permissionstatus')->comment('权限状态');
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

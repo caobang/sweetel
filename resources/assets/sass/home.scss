@@ -7,15 +7,23 @@ body{
     margin:0;
 }
 
-.el-tabs .el-tabs__nav{
+.el-tree .el-tabs .el-tabs__nav{
     margin-top:10px;
     margin-left:10px;
 }
-.el-tree-node__content{
+.el-tree .el-tree-node__content{
     position:relative;
 }
-.el-tree-node__content:not(:hover) div{
+.el-tree .el-tree-node__content div{
     display:none;
+}
+
+.el-tree-node__content:hover div{
+    display:block;
+}
+
+.is-current .el-tree-node__content div{
+    display:block;
 }
 
 // font-awesome css

@@ -7,5 +7,20 @@ export default {
     },
     mobile(){
         return /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)
+    },
+    toTreeData(data, parent,parentid=0){
+        var tree = [];
+        var temp;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i][parent] == parentid) {
+                var obj = data[i];
+                temp = this.toTreeData(data, parent,data[i].id);
+                if (temp.length > 0) {
+                    obj.children = temp;
+                }
+                tree.push(obj);
+            }
+        }
+        return tree;
     }
 }

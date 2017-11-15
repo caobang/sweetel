@@ -45,7 +45,7 @@
                 <div class='useroperation'>
                     <el-dropdown  @command="userAction">
                         <span class="el-dropdown-link">
-                            {{userinfo.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
+                            {{userInfo.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
                         </span>
                             <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="1">个人中心</el-dropdown-item>
@@ -75,14 +75,14 @@ export default {
     },
     computed: {
         ...mapState([
-            'userinfo',
+            'userInfo',
             'menus'
         ]),
         userStatus(){
-            return this.userinfo.status
+            return this.userInfo.status
         },
         userHeadLink(){
-	        let userhead = this.userinfo.userhead
+	        let userhead = this.userInfo.userhead
             return userhead?userhead:require('../../img/userhead.jpg')
         }
 

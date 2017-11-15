@@ -21,8 +21,8 @@ class CreateTeamsTable extends Migration
             $table->string('phone')->nullable()->comment('手机');
             $table->string('address')->nullable()->comment('地址');
             $table->unsignedTinyInteger('businesstype')->default(1)->comment('商业类型');//1免费版 2专业版 3定制版
-            $table->boolean('enabled')->default(1)->comment('有效');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
