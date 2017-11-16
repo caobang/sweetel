@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import setting from './modules/setting'
+import chat from './modules/chat'
 import axios from 'axios'
 import {api,apiwidget} from '../api'
 
@@ -59,6 +60,7 @@ export default new Vuex.Store({
     actions,
     modules: {
         user,
+        chat,
         //setting
     }
 })
