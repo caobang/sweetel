@@ -19,6 +19,15 @@ export const editUserGroup = params => { return axios.put(`${base}/usergroups/${
 export const delUserGroup = id => { return axios.delete(`${base}/usergroups/${id}`).then(res => res.data) }
 
 
+export const getRoles = () => { return axios.get(`${base}/roles`).then(res => res.data) }
+
+export const addRole = params => { return axios.post(`${base}/roles`,params).then(res => res.data) }
+
+export const editRole = params => { return axios.put(`${base}/roles/${params.id}`,params).then(res => res.data) }
+
+export const delRole = id => { return axios.delete(`${base}/roles/${id}`).then(res => res.data) }
+
+
 export const getPagingUsers = params => { return axios.get(`${base}/users`,{params:params}).then(res => res.data) }
 
 export const addUser = params => { return axios.post(`${base}/users`,params).then(res => res.data) }

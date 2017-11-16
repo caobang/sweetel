@@ -5,30 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Group extends Model
+class Role extends Model
 {
     use SoftDeletes;
-
-    /**
-     * 需要被转换成日期的属性。
-     *
-     * @var array
-     */
-    //protected $dates = ['deleted_at'];
-
+    
     /**
      * 不可被批量赋值的属性。
      *
      * @var array
      */
     protected $guarded = [];
-    
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'deleted_at','grouptype'
+        'created_at', 'updated_at', 'deleted_at'
     ];
 }

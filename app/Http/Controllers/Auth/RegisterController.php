@@ -100,7 +100,7 @@ class RegisterController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
-                'team_id' => 1,
+                'team_id' => $teamid,
                 'role_id' => 1,
                 'usergroup_id' => 1,
                 'chatgroup_id' => 2,

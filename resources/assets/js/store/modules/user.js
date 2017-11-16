@@ -3,7 +3,7 @@ import {api} from '../../api'
 // 应用初始状态
 const state = {
     userGroups:[{id:1,name:'',parent_id:0}],
-    userRoles:[{id:1,name:'管理员'},{id:2,name:'权限1'},{id:3,name:'权限2'}],
+    roles:[{id:1,name:''}],
     userData:{total:0,list:[]}
 }
 
@@ -21,6 +21,9 @@ const mutations = {
     },
     setUserData(state,userData) {
         state.userData = userData
+    },
+    setRoles(state,roles) {
+        state.roles = roles
     }
 }
 
@@ -39,6 +42,11 @@ const actions = {
     },
     delUserGroup ({ commit },id) {
         return api.delUserGroup(id)
+    },
+    loadRoles ({ commit }) {
+        return api.getRoles().then((data)=>{
+            commit('setRoles',data)
+        })
     },
     loadPagingUsers({ commit },params) {
         return api.getPagingUsers(params).then((data)=>{

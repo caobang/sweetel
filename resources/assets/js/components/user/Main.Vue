@@ -9,8 +9,8 @@
             <el-tree node-key='id' @node-click="nodeClick" :render-content="renderContent" style="padding:15px 0px 15px 0;min-height:400px;max-height:700px;overflow:auto;" highlight-current ref="tree" :data="userGroupsTreeData" :props="defaultProps" default-expand-all :filter-node-method="filterNode"></el-tree>
 
             <el-dialog :modal-append-to-body='false' :modal='true' width="500px" :title="groupDialogTitle" :visible.sync="groupDialogVisible">
-                <el-form style="width:400px;" label-width="80px" size="small" :model="groupForm">
-                    <el-form-item label="分组名称" >
+                <el-form ref="groupForm" style="width:400px;" label-width="100px" size="small" :model="groupForm" :rules="groupFormRules">
+                    <el-form-item label="分组名称" prop="name">
                         <el-input v-model="groupForm.name"></el-input>
                     </el-form-item>
                 </el-form>
@@ -21,27 +21,23 @@
             </el-dialog>
             
         </el-aside>
-        <el-container>
+        <el-container style="width:0;">
             <el-main>
                 <el-dialog :modal-append-to-body='false' width="500px" :title="userDialogTitle" :visible.sync="userDialogVisible">
-                    <el-form style="width:400px;" label-width="80px" size="small" :model="userForm">
-                        <el-form-item label="用户名" >
+                    <el-form ref="userForm" style="width:400px;" label-width="100px" size="small" :model="userForm" :rules="userFormRules">
+                        <el-form-item label="用户名" prop="name">
                             <el-input v-model="userForm.name"></el-input>
                         </el-form-item>
-                        <el-form-item label="登陆邮箱" >
+                        <el-form-item label="登陆邮箱" prop="email">
                             <el-input v-model="userForm.email"></el-input>
                         </el-form-item>
-                        <el-form-item label="用户组" >
+                        <el-form-item label="用户组" prop="usergroupid">
                             <el-cascader style="display:block;" @change="groupChange" change-on-select :options="userGroupsTreeData" :show-all-levels="false" :props="{value:'id',label:'name'}" v-model="userFormGroupOptions">
                             </el-cascader>
                         </el-form-item>
-                        <el-form-item label="用户角色" >
+                        <el-form-item label="用户角色" prop="roleid">
                             <el-select style="display:block;" v-model="userForm.roleid" placeholder="请选择">
-                                <el-option
-                                v-for="item in userRoles"
-                                :key="item.id"
-                                :label="item.name"
-                                :value="item.id">
+                                <el-option v-for="item in roles" :key="item.id" :value="item.id" :label="item.name">
                                 </el-option>
                             </el-select>
                         </el-form-item>
@@ -60,9 +56,8 @@
                         <el-button type="primary" icon="el-icon-plus" @click="openUserDialog({},true)">添加</el-button>
                     </el-form-item>
                 </el-form>
-                <el-table v-loading="userLoading" @sort-change="sortChange" :default-sort="defaultSort" size="small" max-height='800' border :header-row-style="{'background-color':'#f5f7fa','color':'#5a5e66'}"
-                    :data="userData.list" 
-                    style="">
+                <el-table ref="table" v-loading="userLoading" @sort-change="sortChange" :default-sort="defaultSort" size="small" max-height='800' border :header-row-style="{'background-color':'#f5f7fa','color':'#5a5e66'}"
+                    :data="userData.list" style="">
                     <el-table-column sortable="custom" prop="name" label="用户名" width="100">
                     </el-table-column>
                     <el-table-column sortable="custom" prop="email" label="登陆邮箱" min-width="150">
@@ -98,11 +93,31 @@
                 groupDialogTitle:'',
                 groupDialogVisible:false,
                 groupForm:{id:0,name:'',parentid:0},
+                groupFormRules: {
+                    name: [
+                        { required: true, message: '请输入分组名称' }
+                    ]
+                },
                 userDialogTitle:'',
                 userDialogVisible:false,
                 userFormGroupOptions:[1],
-                userForm:{id:0,name:'',email:'',usergroupid:1,roleid:0},
+                userForm:{id:0,name:'',email:'',usergroupid:1,roleid:1},
+                userFormRules: {
+                    name: [
+                        { required: true, message: '请输入用户名' }
+                    ],
+                    email: [
+                        { required: true, type: 'email',message: '请输入登录邮箱' }
+                    ],
+                    usergroupid: [
+                        { required: true, message: '请选择用户组' }
+                    ],
+                    roleid: [
+                        { required: true, message: '请选择权限' }
+                    ]
+                },
                 defaultSort:{prop:'created_at',order:'descending'},
+                currentSort:{prop:null,order:null},
                 paginationSize:10,
                 currentPage:1,
                 userLoading:false
@@ -112,7 +127,7 @@
         computed: {
             ...mapState({
                 userGroups:state => state.user.userGroups,
-                userRoles:state => state.user.userRoles,
+                roles:state => state.user.roles,
                 userData:state => state.user.userData
             }),
             userGroupsTreeData(){
@@ -134,8 +149,8 @@
                 return h('span', {attrs:{class:'el-tree-node__label'}},[
                             data.name,h('div',{attrs:{style:'position:absolute;top:0;right:15px;line-height:26px;'}},[
                                 h('i',{attrs:{class:'el-icon-plus'},on:{click:function (event) {event.stopPropagation();self.openGroupDialog(data,true)}}}),
-                                data.team_id!==0?h('i',{attrs:{class:'el-icon-edit-outline'},on:{click:function (event) {event.stopPropagation();self.openGroupDialog(data)}}}):'',
-                                node.isLeaf?h('i',{attrs:{class:'el-icon-delete'},on:{click:function (event) {event.stopPropagation();self.delGroup(data.id)}}}):''
+                                data.team_id>0?h('i',{attrs:{class:'el-icon-edit-outline'},on:{click:function (event) {event.stopPropagation();self.openGroupDialog(data)}}}):'',
+                                node.isLeaf&&data.team_id>0?h('i',{attrs:{class:'el-icon-delete'},on:{click:function (event) {event.stopPropagation();self.delGroup(data.id)}}}):''
                             ])
                         ])
             },
@@ -154,22 +169,24 @@
                 this.groupDialogVisible = true
             },
             saveGroup(){
-                if(this.groupForm.name==='')
-                    return
-                let actionName = this.groupForm.id===0?'addUserGroup':'editUserGroup'
-                this.$store.dispatch(actionName,this.groupForm).then((data)=>{
-                    console.log(data)
-                    this.groupDialogVisible = false
-                    this.$message({
-                        showClose: true,
-                        message: '用户分组保存成功',
-                        type: 'success'
-                    });
-                    this.filterText=''
-                    let currerntKey=this.$refs.tree.getCurrentKey()
-                    this.$store.dispatch('loadUserGroups').then(()=>{
-                        this.$refs.tree.setCurrentKey(currerntKey)
-                    })
+                this.$refs.groupForm.validate((valid) => {
+                    if (valid) {
+                        let actionName = this.groupForm.id===0?'addUserGroup':'editUserGroup'
+                        this.$store.dispatch(actionName,this.groupForm).then((data)=>{
+                            console.log(data)
+                            this.groupDialogVisible = false
+                            this.$message({
+                                showClose: true,
+                                message: '用户分组保存成功',
+                                type: 'success'
+                            });
+                            this.filterText=''
+                            let currerntKey=this.$refs.tree.getCurrentKey()
+                            this.$store.dispatch('loadUserGroups').then(()=>{
+                                this.$refs.tree.setCurrentKey(currerntKey)
+                            })
+                        })
+                    }
                 })
             },
             delGroup(id){
@@ -187,6 +204,9 @@
             },
             nodeClick(data){
                 this.currentPage=1
+                this.$refs.table.clearSort()
+                this.currentSort.prop=this.defaultSort.prop
+                this.currentSort.order=this.defaultSort.order
                 this.loadData()
             },
             currentChange(currentPage){
@@ -195,19 +215,21 @@
             },
             sortChange({column, prop, order}){
                 this.currentPage=1
-                this.defaultSort.prop=prop
-                this.defaultSort.order=order
+                this.currentSort.prop=prop
+                this.currentSort.order=order
                 this.loadData()
             },
             loadData(){
+                let prop=prop||this.currentSort.prop||this.defaultSort.prop
+                let order=order||this.currentSort.order||this.defaultSort.order
                 this.userLoading=true
                 let params={
                     usergroupid:this.$refs.tree.getCurrentKey(),
                     name:this.searchForm.username,
                     size:this.paginationSize,
                     page:this.currentPage,
-                    orderby:this.defaultSort.prop,
-                    sort:this.defaultSort.order==='ascending'?'asc':'desc'
+                    orderby:prop,
+                    sort:order==='ascending'?'asc':'desc'
                 }
                 this.$store.dispatch('loadPagingUsers',params).then(()=>{
                     this.userLoading=false
@@ -215,6 +237,9 @@
             },
             searchUser(){
                 this.currentPage=1
+                this.$refs.table.clearSort()
+                this.currentSort.prop=this.defaultSort.prop
+                this.currentSort.order=this.defaultSort.order
                 this.loadData()
             },
             openUserDialog(user,add){
@@ -231,7 +256,7 @@
                     this.userForm.id=user.id
                     this.userForm.name=user.name
                     this.userForm.email=user.email
-                    this.userFormGroupOptions=[user.usergroup_id]
+                    this.userFormGroupOptions=util.getParentKeys(this.userGroups,'parent_id',user.usergroup_id)
                     this.userForm.roleid=user.role_id
                 }
                 this.userDialogVisible = true;
@@ -240,19 +265,20 @@
                 this.userForm.usergroupid=this.userFormGroupOptions[this.userFormGroupOptions.length - 1]
             },
             saveUser(){
-                if(this.userForm.name==='')
-                    return
-                console.log(this.userFormGroupOptions)
-                let actionName = this.userForm.id===0?'addUser':'editUser'
-                this.$store.dispatch(actionName,this.userForm).then((data)=>{
-                    this.userDialogVisible = false
-                    this.$message({
-                        showClose: true,
-                        message: '用户保存成功',
-                        type: 'success'
-                    });
-                    this.currentPage=1
-                    this.loadData()
+                this.$refs.userForm.validate((valid) => {
+                    if (valid) {
+                        let actionName = this.userForm.id===0?'addUser':'editUser'
+                        this.$store.dispatch(actionName,this.userForm).then((data)=>{
+                            this.userDialogVisible = false
+                            this.$message({
+                                showClose: true,
+                                message: '用户保存成功',
+                                type: 'success'
+                            });
+                            this.currentPage=1
+                            this.loadData()
+                        })
+                    }
                 })
             },
             delUser(id){
@@ -271,6 +297,7 @@
         },
         mounted() {
             this.$store.dispatch('loadUserGroups')
+            this.$store.dispatch('loadRoles')
         }
     }
 </script>
