@@ -1,7 +1,7 @@
 <template>
     <el-container class="main">
         <el-aside>
-            <el-menu :collapse='collapsed' router default-active="/" @select="selectNode" background-color="#324157" text-color="#fff" active-text-color="#409EFF">
+            <el-menu :collapse='collapsed' router :default-active="currentRoute" @select="selectNode" background-color="#324157" text-color="#fff" active-text-color="#409EFF">
                 <div class="userhead">
                     <img :src="userHeadLink" />
                     <el-dropdown @command="changeStatus" style="display:block;padding-top:10px;">
@@ -31,7 +31,7 @@
             </el-menu>
         </el-aside>
         <el-container>
-            <el-main>
+            <el-main style="position:relative;">
                 <el-tabs type="card" v-model="activeTabName" @tab-remove="removeTab">
                     <el-tab-pane v-for="(item,index) in tabs" :closable="item.tabClosable" :name="String(index)" :key="item.guid">
                         <span slot="label">
@@ -43,6 +43,12 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class='useroperation'>
+                    <el-badge :value="200" :max="99" style="margin-right:30px;">
+                    <el-button type="" size="mini" >内部通讯</el-button>
+                    </el-badge>
+                    <el-badge :value="1" :max="10" style="margin-right:30px;">
+                    <el-button type=""  size="mini" @click="openVisitor">访客会话</el-button>
+                    </el-badge>
                     <el-dropdown  @command="userAction">
                         <span class="el-dropdown-link">
                             {{userInfo.name}}<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -64,12 +70,14 @@ import Vue from 'vue'
 import bus from '../bus'
 import util from '../util'
 import { mapState } from 'vuex'
+import Chat from './chat/Main'
 
 export default {
     data() {
 		return {
             collapsed:false,
             activeTabName:"0",
+            currentRoute:'/',
             tabs:[{tabIcon:'',tabTitle:'',tabClosable:false}]
 		}
     },
@@ -110,16 +118,24 @@ export default {
             let activenum = Number(this.activeTabName);
             this.tabs.splice(num,1);
             this.activeTabName = activenum>num?String(activenum - 1):activenum===num&&num>this.tabs.length-1?String(num-1):String(activenum);
+        },
+        openVisitor:function(){
+            bus.$emit('addTab',{tabIcon:'el-icon-fa-commenting',tabTitle:'访客会话',tabComponent:Chat,tabClosable:true},true)
         }
     },
     mounted:function(){
+        this.currentRoute=this.$router.currentRoute.path
         if(this.menus.length>0){
-            var curIndex = this.$router.currentRoute.path
-            this.selectNode(curIndex)
+            this.selectNode(this.currentRoute)
         }
     },
     created:function(){
         bus.$on('addTab', (tab,open) => {
+            let existIndex=this.tabs.findIndex(t=>t.tabTitle==tab.tabTitle)
+            if(existIndex>-1){
+                this.activeTabName = String(existIndex);
+                return
+            }
             tab = tab || {};
             tab.guid = util.guid();
             tab.tabTitle = tab.tabTitle || '标签页';
@@ -201,13 +217,13 @@ export default {
 }
 .useroperation{
     position:absolute;
-    right:10px;
-    top:0px;
-    height:50px;
-    line-height:50px;
+    right:15px;
+    top:15px;
+    /*height:50px;
+    line-height:50px;*/
 }
 .useroperation .el-dropdown{
-    display:block;
+    /*display:block;*/
 }
 .userhead{
     padding:10px;
