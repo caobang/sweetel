@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home/{module?}', 'HomeController@index')->name('home');
+
+Route::get('/chat/pc', function () {
+    return view('chat.pc');
+});
+
+Route::get('/chat/mobile', function () {
+    return view('chat.mobile');
+});

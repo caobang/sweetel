@@ -57,11 +57,11 @@ class UserController extends Controller
         $user = Auth::user();
         $size = $request->input('size',0);
         $name = $request->input('name');
-        $usergroupid = $request->input('usergroupid',0);
+        $groupid = $request->input('groupid',0);
         $orderby = $request->input('orderby');
         $sort = $request->input('sort');
         $data = DB::table('users')
-            ->leftJoin('groups', 'groups.id', '=', 'users.usergroup_id')
+            ->leftJoin('groups', 'groups.id', '=', 'users.group_id')
             ->leftJoin('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.deleted_at', null)
             //->where('groups.deleted_at', null)
@@ -69,11 +69,11 @@ class UserController extends Controller
             ->where('users.team_id', $user->team_id)
             ->where('users.name','like', '%'.$name.'%')
             ->where('groups.grouptype', 1)
-            ->when($usergroupid>0, function ($query) use ($usergroupid) {
-                return $query->where('users.usergroup_id', $usergroupid);
+            ->when($groupid>0, function ($query) use ($groupid) {
+                return $query->where('users.group_id', $groupid);
             })
             ->orderBy('users.'.$orderby, $sort)
-            ->select('users.id', 'users.name', 'users.email', 'users.usergroup_id', 'groups.name as groupname', 'users.role_id', 'roles.name as rolename', 'users.created_at')
+            ->select('users.id', 'users.name', 'users.email', 'users.group_id', 'groups.name as groupname', 'users.role_id', 'roles.name as rolename', 'users.created_at')
             ->paginate($size);
         return ['total'=>$data->total(),'list'=>$data->items()];
     }
@@ -88,15 +88,15 @@ class UserController extends Controller
         $user = Auth::user();
         $name = $request->input('name');
         $email = $request->input('email');
-        $usergroupid = $request->input('usergroupid');
+        $groupid = $request->input('groupid');
         $roleid = $request->input('roleid');
         $user = User::create(['name' => $name,
                         'email' => $email,
                         'password' => bcrypt('111111'),
                         'role_id' => $roleid,
                         'team_id' => $user->team_id,
-                        'usergroup_id' => $usergroupid,
-                        'chatgroup_id' => 2
+                        'group_id' => $groupid
+                        //'chatgroup_id' => 2
                         ]);
     }
 
@@ -109,14 +109,14 @@ class UserController extends Controller
     {
         $name = $request->input('name');
         $email = $request->input('email');
-        $usergroupid = $request->input('usergroupid');
+        $groupid = $request->input('groupid');
         $roleid = $request->input('roleid');
         $user = User::find($id);
         $user->fill([
             'name' => $name,
             'email' => $email,
             'roleid' => $roleid,
-            'usergroup_id' => $usergroupid,
+            'group_id' => $groupid,
         ]);
         $user->save();
     }

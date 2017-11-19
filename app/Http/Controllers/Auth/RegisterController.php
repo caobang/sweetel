@@ -96,15 +96,45 @@ class RegisterController extends Controller
                 'team_id' => $teamid,
                 'created_at' => new Carbon
             ]);
+            $usergroupid = DB::table('groups')->insertGetId([
+                'name' => '默认分组',
+                'grouptype' => 1,
+                'team_id' => $teamid
+            ]);
+            $chatgroupid = DB::table('groups')->insertGetId([
+                'name' => '默认分组',
+                'grouptype' => 2,
+                'team_id' => $teamid
+            ]);
+            DB::table('groups')->insert([
+                'name' => '默认分类',
+                'grouptype' => 3,
+                'team_id' => $teamid
+            ]);
+            DB::table('groups')->insert([
+                'name' => '默认分组',
+                'grouptype' => 4,
+                'team_id' => $teamid
+            ]);
+            DB::table('groups')->insert([
+                'name' => '默认分类',
+                'grouptype' => 5,
+                'team_id' => $teamid
+            ]);
             $userid = DB::table('users')->insertGetId([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'team_id' => $teamid,
                 'role_id' => 1,
-                'usergroup_id' => 1,
-                'chatgroup_id' => 2,
+                'group_id' => $usergroupid,
+                //'chatgroup_id' => 2,
                 'created_at' => new Carbon
+            ]);
+            
+            DB::table('chatgroupusers')->insert([
+                'group_id' => $chatgroupid,
+                'user_id' => $userid
             ]);
             return $userid;
         });

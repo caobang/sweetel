@@ -11,7 +11,7 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('groups')->insert([
+        /*DB::table('groups')->insert([
             'id' => 1,
             'name' => '默认分组',
             'grouptype' => 1,
@@ -40,6 +40,6 @@ class GroupsTableSeeder extends Seeder
             'name' => '默认分类',
             'grouptype' => 5,
             'team_id' => 0
-        ]);
+        ]);*/
     }
 }

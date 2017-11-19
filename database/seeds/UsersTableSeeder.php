@@ -29,8 +29,42 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('111111'),
             'team_id' => 1,
             'role_id' => 1,
-            'usergroup_id' => 1,
-            'chatgroup_id' => 2
+            'group_id' => 1
+            //'chatgroup_id' => 2
+        ]);
+        DB::table('groups')->insert([
+            'id' => 1,
+            'name' => '默认分组',
+            'grouptype' => 1,
+            'team_id' => 1
+        ]);
+        DB::table('groups')->insert([
+            'id' => 2,
+            'name' => '默认分组',
+            'grouptype' => 2,
+            'team_id' => 1
+        ]);
+        DB::table('groups')->insert([
+            'id' => 3,
+            'name' => '默认分类',
+            'grouptype' => 3,
+            'team_id' => 1
+        ]);
+        DB::table('groups')->insert([
+            'id' => 4,
+            'name' => '默认分组',
+            'grouptype' => 4,
+            'team_id' => 1
+        ]);
+        DB::table('groups')->insert([
+            'id' => 5,
+            'name' => '默认分类',
+            'grouptype' => 5,
+            'team_id' => 1
+        ]);
+        DB::table('chatgroupusers')->insert([
+            'group_id' => 2,
+            'user_id' => 1
         ]);
     }
 }

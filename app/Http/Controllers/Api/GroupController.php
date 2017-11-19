@@ -45,8 +45,9 @@ class GroupController extends Controller
     {
         $user = Auth::user();
         $groupname = $request->input('name');
-        $parentid = $request->input('parentid',0);
-        Group::create(['parent_id' => $parentid,
+        //$parentid = $request->input('parentid',0);
+        Group::create([
+            //'parent_id' => $parentid,
                         'grouptype' => 1,
                         'name' => $groupname,
                         'team_id' => $user->team_id
@@ -62,10 +63,8 @@ class GroupController extends Controller
     {
         $groupname = $request->input('name');
         $group = Group::find($id);
-        if($group-> team_id > 0){
-            $group->fill(['name' => $groupname]);
-            $group->save();
-        }
+        $group->fill(['name' => $groupname]);
+        $group->save();
     }
 
     /**
@@ -76,8 +75,6 @@ class GroupController extends Controller
     public function delUserGroup(int $id)
     {
         $group = Group::find($id);
-        if($group-> team_id > 0){
-            $group->delete();
-        }
+        $group->delete();
     }
 }

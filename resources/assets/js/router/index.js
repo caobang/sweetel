@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../components/dashboard/Main'
-import Setting from '../components/setting/Main'
-import User from '../components/user/Main'
-import Chat from '../components/chat/Main'
-import Robot from '../components/robot/Main'
-import Customer from '../components/customer/Main'
-import Order from '../components/order/Main'
-import Analysis from '../components/analysis/Main'
+import Dashboard from '../components/Dashboard'
+import Setting from '../components/Setting'
+import User from '../components/User'
+import Chat from '../components/Chat'
+import Robot from '../components/Robot'
+import Customer from '../components/Customer'
+import Order from '../components/Order'
+import Analysis from '../components/Analysis'
 
 Vue.use(VueRouter)
 

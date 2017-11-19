@@ -2,7 +2,7 @@ import {api} from '../../api'
 
 // 应用初始状态
 const state = {
-    userGroups:[{id:1,name:'',parent_id:0}],
+    userGroups:[{id:1,name:''}],
     roles:[{id:1,name:''}],
     userData:{total:0,list:[]}
 }
@@ -17,7 +17,6 @@ const getters = {
 const mutations = {
     setUserGroups(state,userGroups) {
         state.userGroups = userGroups
-        //state.userGroups.unshift({id:-1,name:'全部',parent_id:0})
     },
     setUserData(state,userData) {
         state.userData = userData
