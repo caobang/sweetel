@@ -50,6 +50,7 @@
 <script>
 import util from '../../util';
 import Message from '../../components/Message'
+import {apiwidget} from '../../api'
 export default {
     
     sockets:{
@@ -68,10 +69,19 @@ export default {
                     var mContainer = this.$refs.messageContainer
                     mContainer.scrollTop = mContainer.scrollHeight;
                 })
+        },
+        info: function(content){
+            console.log(content)
+            this.socketid=content
+            apiwidget.connection({socketid:content}).then((data)=>{
+                this.chatid=data.chatid
+            })
         }
     },
     data () {
         return {
+            chatid:0,
+            socketid:0,
             clientinfo:{
                 sid:''
             },
@@ -98,7 +108,8 @@ export default {
         sendMessage:function(e){
             if(this.inputcontent.length>0){
                 this.messages.push({username:'',datetime:'12:33:43',content:this.inputcontent,self:true})
-                this.$socket.send(this.inputcontent);
+                apiwidget.sendMessage({chatid:this.chatid,socketid:this.socketid,content:this.inputcontent})
+                //this.$socket.send(this.inputcontent);
                 this.inputcontent=''
                 this.$nextTick(function () {
                     var mContainer = this.$refs.messageContainer

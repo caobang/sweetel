@@ -13,3 +13,7 @@
 
 
 Route::get('/configs/{tid}', 'WidgetController@getConfig');
+
+Route::post('/connection', 'WidgetController@connection');
+
+Route::post('/messages', 'WidgetController@sendMessage');

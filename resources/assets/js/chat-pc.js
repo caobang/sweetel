@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VueSocketio from 'vue-socket.io';
 import Pc from './views/chat/Pc'
 
-Vue.use(VueSocketio, 'http://localhost:5001/customer');
+Vue.use(VueSocketio, 'http://localhost:6001');
 
 Vue.config.productionTip = false
 

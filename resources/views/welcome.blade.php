@@ -93,7 +93,7 @@
             {{ csrf_field() }}
         </div>
         
-     <!--<script type='text/javascript'>
+     <!----><script type='text/javascript'>
       (function(m, ei, q, i, a, j, s) {
           m[i] = m[i] || function() {
               (m[i].a = m[i].a || []).push(arguments)
@@ -108,7 +108,7 @@
       _MEIQIA('entId', 78105);
     </script>
     <script src="https://www.sobot.com/chat/frame/js/entrance.js?sysNum=37b7337b163e4d36a74e9f64ff630cbd" class="zhiCustomBtn" id="zhichiScript"></script>
-    -->
+    
     <script src="{{ mix('js/widget.js') }}" ></script>
 </body>
 </html>
